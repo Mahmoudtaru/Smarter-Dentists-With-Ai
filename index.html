@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smarter Dentists With Ai</title>
+    <!-- تحميل Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- تحميل مكتبة Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* إعداد الخط الافتراضي (Almarai) مع أوزان متعددة */
+        @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap');
+        
+        /* ================================================= */
+        /* متغيرات CSS للألوان والتصميم (CSS Variables) */
+        /* ================================================= */
+        :root {
+            --brand-primary: #0B3D4C; /* أزرق داكن جديد */
+            --brand-accent: #A3C14A;  /* أخضر جديد */
+            
+            /* الوضع الفاتح - Light Theme */
+            --light-bg: #F8F3E9; /* كريمي جديد */
+            --light-container-bg: #FFFFFF;
+            --light-card-bg: #FFFFFF;
+            --light-text-primary: #1f2937;
+            --light-text-secondary: #4b5563;
+            --light-border: #f0f2f5;
+
+            /* الوضع الداكن - Dark Theme */
+            --dark-bg-start: #0a192f;
+            --dark-bg-end: #071c22;
+            --dark-container-bg: #0e2a3a;
+            --dark-card-bg: #1a3a4a;
+            --dark-text-primary: #f1f5f9; 
+            --dark-text-secondary: #cbd5e1; /* زاد السطوع بشكل كبير */
+            --dark-border: #2a5a6a;
+        }
+
+        /* ================================================= */
+        /* الأنماط العامة (الوضع الفاتح - Light Mode) */
+        /* ================================================= */
+        body {
+            font-family: 'Almarai', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--light-text-primary);
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        /* حاوية التطبيق الرئيسية - محاكاة شاشة الموبايل */
+        .mobile-container {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: calc(100vh - 70px);
+            padding-bottom: 90px;
+            background-color: var(--light-container-bg);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.07);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        /* شريط التنقل السفلي */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 500px;
+            margin: 0 auto;
+            height: 70px;
+            background-color: var(--brand-primary); /* لون أساسي داكن */
+            border-top: 2px solid var(--brand-accent); /* خط علوي بلون مميز */
+            z-index: 50;
+            transition: background-color 0.3s, box-shadow 0.3s, border-top-color 0.3s;
+        }
+
+        /* تصميم البطاقات */
+        .content-card {
+            background-color: var(--light-card-bg);  
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            border: 1px solid var(--light-border);
+            transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        
+        /* ================================================= */
+        /* أنماط الوضع الداكن (Dark Mode) */
+        /* ================================================= */
+        .dark body {
+            background: linear-gradient(to top right, var(--dark-bg-start), var(--dark-bg-end));  
+            color: var(--dark-text-primary);  
+        }
+        .dark .mobile-container {
+            background-color: var(--dark-container-bg);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+        }
+        .dark .bottom-nav {
+            background-color: var(--dark-bg-start);
+            border-top-color: var(--brand-accent);
+        }
+        .dark .content-card {
+            background-color: var(--dark-card-bg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border-color: var(--dark-border);
+        }
+        
+        /* تلوين النصوص والعناصر في الوضع الداكن - تم تحسين التباين */
+        .dark .nav-item { color: rgba(255, 255, 255, 0.7); } /* لون موحد للشريط السفلي في الوضعين */
+        .dark .nav-item.active { color: var(--brand-accent); }
+        .dark .text-gray-800, .dark .text-gray-700, .dark .brand-color-primary { color: var(--dark-text-primary) !important; }  
+        .dark .text-gray-600, .dark .text-gray-500 { color: var(--dark-text-secondary) !important; }
+        .dark .bg-gray-50 { background-color: rgba(0,0,0,0.2); }
+        .dark .border-gray-200 { border-color: var(--dark-border); }
+        .dark textarea { background-color: var(--dark-bg-start); color: var(--dark-text-primary); border-color: var(--dark-border); }
+        .dark .tts-button { background-color: var(--brand-accent); color: var(--dark-bg-start); font-weight: bold; }
+        .dark .tts-button:hover { background-color: #8ab03b; }
+        .dark .lecture-link { background-color: #3b3863; color: var(--dark-text-primary); }
+        .dark .lecture-link:hover { background-color: #4a467d; }
+        .dark .learning-space-card { background-color: var(--dark-card-bg); border-color: var(--brand-accent); }
+        .dark .lecture-item-card { border-color: var(--dark-border); }
+        .dark .primary-lecture-btn { background-color: var(--brand-accent); color: var(--dark-bg-start); }
+        .dark .secondary-lecture-btn { border-color: var(--brand-accent); color: var(--brand-accent); }
+        .dark .secondary-lecture-btn:hover { background-color: rgba(162, 195, 85, 0.1); }
+        .dark .notebook-helper-card { background: linear-gradient(135deg, rgba(163, 193, 74, 0.1), rgba(11, 61, 76, 0.2)); }
+        .dark .notice-card { background-color: rgba(163, 193, 74, 0.1); border-top-color: var(--brand-accent); }
+        .dark .notice-title { color: var(--brand-accent) !important; }
+        .dark .hero-section { background: linear-gradient(135deg, rgba(11, 61, 76, 0.5), rgba(163, 193, 74, 0.3)); }
+        
+        .dark .ai-category-header:not(.premium-header) h4,
+        .dark .ai-category-header:not(.premium-header) .chevron,
+        .dark .ai-category-header:not(.premium-header) h4 i { 
+            color: var(--brand-accent) !important; 
+        }
+        .dark .ai-category-header { background-color: #112d3c; border-color: var(--dark-border); }
+        .dark .highlight-card { border-top-color: var(--brand-accent); }
+        .dark .highlight-card:hover { border-color: var(--brand-accent); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); }
+        .dark .premium-card { opacity: 0.6; background-color: var(--dark-card-bg); }
+        .dark .premium-header { background: linear-gradient(to left, var(--brand-accent), #fde047); }
+        .dark .premium-header h4, .dark .premium-header .chevron, .dark .premium-header h4 i { 
+            color: var(--brand-primary) !important; /* FIXED: Force dark text */
+        }
+        .dark .premium-card::after { color: #fde047; text-shadow: 0 0 5px rgba(253, 224, 71, 0.7); }
+        .dark .share-input { background-color: var(--dark-bg-start); border-color: var(--dark-border); color: var(--dark-text-secondary); }
+        .dark .distinct-details-container { border-color: var(--brand-accent); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+        .dark .distinct-details-container > summary { background-color: #112d3c; }
+        .dark .distinct-details-container > summary:hover { background-color: var(--dark-card-bg); }
+        .dark .distinct-details-container > summary h4, .dark .distinct-details-container > summary .chevron, .dark .distinct-details-container > summary h4 i { color: var(--brand-accent) !important; }
+        .dark details[open] > .ai-category-header { border-bottom-color: var(--dark-border); }
+        .dark .tab-main-title {
+            background-color: var(--dark-card-bg);
+            color: var(--brand-accent) !important;
+            border-color: var(--dark-border);
+        }
+        .dark .tab-main-title i {
+            color: var(--brand-accent) !important;
+        }
+
+
+        /* NEW: تحسين وضوح اللوجو في الوضع الداكن */
+        .dark header img {
+            filter: brightness(1.1);
+        }
+
+        /* ================================================= */
+        /* الأنماط المشتركة والبراند */
+        /* ================================================= */
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-size: 0.75rem; color: rgba(255, 255, 255, 0.7); transition: color 0.2s, transform 0.2s; cursor: pointer; flex: 1; font-weight: 700;
+        }
+        .nav-item:hover { transform: translateY(-2px); }
+        
+        .brand-color-primary { color: var(--brand-primary); }
+        .brand-color-accent { color: var(--brand-accent); }
+        .nav-item.active { color: var(--brand-accent); font-weight: 800; transform: translateY(-2px); }
+        .ai-logo-nav { filter: grayscale(1) opacity(0.6); transition: filter 0.3s, opacity 0.3s; }
+        .nav-item.active .ai-logo-nav { filter: grayscale(0) opacity(1); }
+        .dark .nav-item .ai-logo-nav { filter: grayscale(0) opacity(1); } /* Ensure logo is colored in dark mode nav */
+
+        .ai-button {
+            background-image: linear-gradient(to left, var(--brand-primary), var(--brand-accent));  
+            color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 700; transition: all 0.3s;
+        }
+        .ai-button:hover { opacity: 0.9; transform: scale(1.02); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        .border-brand-color-primary { border-right-color: var(--brand-primary); }
+        .dark .border-brand-color-primary { border-right-color: var(--brand-accent); }
+        .tts-button { background-color: var(--brand-primary); color: white; transition: background-color 0.2s; }
+        .tts-button:hover { background-color: #082d3a; }
+        
+        .mode-toggle {
+            position: absolute; top: 20px; left: 20px; z-index: 60; padding: 8px;
+            border-radius: 9999px; background-color: #f3f4f6; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .dark .mode-toggle { background-color: var(--dark-card-bg); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-content.active-tab { animation: fadeIn 0.4s ease-out; }
+        
+        .social-link {
+            display: flex; align-items: center; justify-content: center; padding: 0.7rem 1rem;
+            border-radius: 0.5rem; font-weight: 700; text-decoration: none;
+            transition: all 0.2s; border: 2px solid; font-size: 0.875rem;
+            border-color: var(--brand-primary); color: var(--brand-primary);
+        }
+        .social-link:hover { background-color: var(--brand-primary); color: white; transform: translateY(-2px); }
+        .dark .social-link { background-color: transparent; border-color: var(--brand-accent); color: var(--brand-accent); }
+        .dark .social-link:hover { background-color: var(--brand-accent); color: var(--dark-bg-start); }
+
+        /* ================================================= */
+        /* أنماط شاشة البداية المحسّنة (Splash Screen) */
+        /* ================================================= */
+        #splash-screen { transition: opacity 0.7s ease-in-out, visibility 0.7s; }
+        #splash-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        #main-content { transition: opacity 0.7s ease-in-out; }
+        #main-content.hidden { opacity: 0; }
+
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes shimmer { 0% { transform: translateX(-150%) skewX(-30deg); } 100% { transform: translateX(150%) skewX(-30deg); } }
+        @keyframes blink { 50% { border-color: transparent; } }
+
+        .splash-logo { animation: fadeInScale 1s ease-out forwards; opacity:0; }
+        .typing-cursor::after {
+            content: '|'; display: inline-block; margin-right: 0.15em; animation: blink 0.75s step-end infinite; color: var(--brand-accent);
+        }
+        
+        .splash-button {  
+            position: relative; overflow: hidden; opacity: 0; transform: translateY(20px);
+            transition: opacity 0.5s ease-in-out, transform 0.2s ease, box-shadow 0.2s ease;  
+        }
+        .splash-button.visible { animation: fadeInUp 0.8s 0.2s ease-out forwards; }
+        .splash-button:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(162, 195, 85, 0.6); }
+        .splash-button.shimmer::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            animation: shimmer 1.5s ease-out;
+        }
+
+        /* Styling for the dropdowns (details/summary) */
+        details { 
+            overflow: hidden; 
+            border-radius: 0.75rem; 
+        } 
+        .distinct-details-container {
+             border: 2px solid rgba(11, 61, 76, 0.2);
+             box-shadow: 0 4px 12px rgba(11, 61, 76, 0.08);
+        }
+        details > summary {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            transition: background-color 0.2s;
+            user-select: none;
+            list-style: none; /* For Firefox */
+        }
+        details > summary::-webkit-details-marker { display: none; } /* For Chrome */
+
+        .ai-category-header {
+            background-color: rgba(11, 61, 76, 0.05);
+            font-weight: 800;
+        }
+        .ai-category-header:hover {
+            background-color: rgba(11, 61, 76, 0.1);
+        }
+        .ai-category-header h4 {
+             color: var(--brand-primary);
+        }
+        .ai-category-header .chevron {
+            color: var(--brand-primary);
+            transition: transform 0.3s ease;
+        }
+        details[open] > .ai-category-header {
+            border-bottom: 1px solid #e5e7eb;
+        }
+        details[open] > .ai-category-header .chevron {
+            transform: rotate(90deg);
+        }
+        
+        .collapsible-content {
+            padding: 1rem;
+        }
+        .dark .collapsible-content { border-top: 1px solid var(--dark-border); }
+        .dark details { border-color: var(--dark-border); }
+        .dark .ai-category-details { border-color: var(--dark-border); }
+
+        
+        /* NEW STYLES for Learn Section */
+        .learning-space-card {
+            background-color: #f8f7ff;
+        }
+        .lecture-item-card {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--light-border);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+        .primary-lecture-btn {
+            background-color: var(--brand-primary);
+            color: white;
+        }
+        .secondary-lecture-btn {
+            border: 1px solid var(--brand-primary);
+            color: var(--brand-primary);
+        }
+        .lecture-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .lecture-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .notebook-helper-card {
+            background: linear-gradient(135deg, rgba(74, 70, 125, 0.05), rgba(162, 195, 85, 0.05));
+        }
+
+        /* NEW: RTL Notice Card */
+        .notice-card {
+            background-color: #f1f8e3;
+            border-top: 4px solid var(--brand-accent);
+        }
+        .notice-title {
+            color: var(--brand-primary);
+        }
+        .notice-icon {
+            color: var(--brand-accent);
+        }
+        
+        .highlight-card {
+            border: 1px solid var(--light-border);
+            border-top: 4px solid var(--brand-accent);
+            transition: all 0.2s ease-in-out;
+        }
+        .highlight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(11, 61, 76, 0.15);
+        }
+
+        /* NEW: Premium Assistants */
+        .premium-header {
+            background: linear-gradient(to left, var(--brand-accent), #facc15);
+            border-bottom: 1px solid #fde047;
+        }
+        .premium-header h4, .premium-header .chevron, .premium-header h4 i {
+            color: var(--brand-primary) !important;
+            font-weight: 800;
+        }
+        .premium-card {
+            position: relative;
+            opacity: 0.75;
+            cursor: pointer;
+            border-top-color: #facc15;
+        }
+        .premium-card::after {
+            content: '🔒';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 1.25rem;
+            opacity: 0.7;
+            color: #eab308;
+        }
+        .premium-card:hover {
+            opacity: 1;
+            border-color: #facc15;
+        }
+
+        /* NEW: Main Section Header */
+        .tab-main-title {
+            background-color: rgba(11, 61, 76, 0.05);
+            color: var(--brand-primary);
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--light-border);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            font-weight: 800;
+        }
+        .tab-main-title i {
+            color: var(--brand-primary);
+        }
+
+
+    </style>
+</head>
+<body class="min-h-screen p-0 m-0">
+
+    <!-- شاشة البداية (Splash Screen) -->
+    <div id="splash-screen" class="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center z-[100] text-white p-4 text-center" style="background: linear-gradient(to top right, #0B3D4C, #082d3a);">
+        <img src="https://i.postimg.cc/T3BTkf37/Chat-GPT-Image-Oct-18-2025-04-50-39-PM.png" alt="Smarter Dentists With Ai Logo" class="rounded-full object-cover mx-auto h-32 w-32 mb-8 splash-logo shadow-lg">
+        
+        <p id="splash-subtitle" class="text-xl opacity-80 mb-10" style="min-height: 32px;"></p>
+        <button id="getStartedButton" class="py-3 px-8 rounded-full font-bold transition-all duration-300 splash-button" style="background-color: var(--brand-accent); color: var(--dark-bg-start);">
+            ابدأ الآن
+        </button>
+    </div>
+
+    <!-- المحتوى الرئيسي للتطبيق -->
+    <div id="main-content" class="hidden">
+        <!-- زر التبديل بين الأوضاع -->
+        <button id="modeToggle" class="mode-toggle">
+            <i data-lucide="moon" id="modeIcon" class="w-5 h-5 text-gray-700 dark:text-gray-200"></i>
+        </button>
+        
+        <!-- حاوية التطبيق -->
+        <div class="mobile-container p-4 md:p-8">
+            <header class="text-center mb-6 pt-4 relative">
+                <img src="https://i.postimg.cc/T3BTkf37/Chat-GPT-Image-Oct-18-2025-04-50-39-PM.png" alt="Smarter Dentists With Ai Logo" class="rounded-full object-cover mx-auto h-20 w-20 mb-3 shadow-md">
+                <p class="text-base text-gray-600 font-semibold">
+                    مساحتك لاستخدام الذكاء الاصطناعي في طب الأسنان بفعالية.
+                </p>
+            </header>
+            
+            <!-- هنا سيتم حقن محتوى التبويبات ديناميكياً -->
+            <main id="app-content">
+                <section id="home" class="tab-content"></section>
+                <section id="notebooks" class="tab-content hidden"></section>
+                <section id="ai-assistants" class="tab-content hidden"></section>
+                <section id="lectures" class="tab-content hidden"></section>
+                <section id="about" class="tab-content hidden"></section>
+            </main>
+
+            <footer class="mt-4 p-2 text-center text-xs text-gray-500 border-t border-gray-200">
+                لعلكم بكل الخير يا رب. خليكم دايماً Smarter Dentists With Ai ❤️
+            </footer>
+        </div>
+        
+        <!-- شريط التنقل السفلي -->
+        <div class="bottom-nav flex justify-around items-center">
+            <div class="nav-item active" data-tab="home"><i data-lucide="home" class="nav-icon w-5 h-5 mb-1"></i>الرئيسية</div>
+            <div class="nav-item" data-tab="notebooks"><i data-lucide="book-open-check" class="nav-icon w-5 h-5 mb-1"></i>Notebooks</div>
+            <div class="nav-item" data-tab="ai-assistants"><img src="https://i.postimg.cc/T3BTkf37/Chat-GPT-Image-Oct-18-2025-04-50-39-PM.png" alt="AI Assistants" class="rounded-full object-cover nav-icon w-7 h-7 mb-1 ai-logo-nav">AI assistants</div>
+            <div class="nav-item" data-tab="lectures"><i data-lucide="graduation-cap" class="nav-icon w-5 h-5 mb-1"></i>تعلم</div>
+            <div class="nav-item" data-tab="about"><i data-lucide="user-check" class="nav-icon w-5 h-5 mb-1"></i>About</div>
+        </div>
+    </div>
+
+    <script>
+        // ====================================================================
+        // الإعدادات العامة والمتغيرات
+        // ====================================================================
+        const apiKey = ""; // سيتم توفيره تلقائياً
+        let currentAudio = null; // لإدارة الصوتيات ومنع التداخل
+        const APP_LINK_TO_SHARE = "https://mahmoudtaru.github.io/Smarter-With-Ai-course/";
+
+        // ====================================================================
+        // محتوى التطبيق الديناميكي: تم نقل كل المحتوى هنا لمنع الحذف
+        // ====================================================================
+        const appContent = {
+            home: `
+                <!-- Hero Section -->
+                <div class="hero-section text-center p-8 rounded-lg mb-8" style="background: linear-gradient(135deg, rgba(11, 61, 76, 0.1), rgba(163, 193, 74, 0.1));">
+                    <h2 class="text-4xl font-extrabold brand-color-primary">مرحباً بك في مساحتك الذكية</h2>
+                    <p class="mt-3 text-base text-gray-600">Smarter Dentists With Ai - دليلك لاستخدام الذكاء الاصطناعي في طب الأسنان بفعالية.</p>
+                </div>
+
+                <!-- App Sections Grid -->
+                <h3 class="tab-main-title text-xl font-bold flex items-center"><i data-lucide="layout-grid" class="inline-block w-6 h-6 ml-3"></i>أقسام التطبيق الرئيسية</h3>
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <!-- Notebooks Card -->
+                    <div onclick="switchTab('notebooks')" class="content-card highlight-card p-4 flex flex-col items-center justify-center text-center cursor-pointer">
+                        <i data-lucide="book-open-check" class="w-8 h-8 mb-2 brand-color-primary"></i>
+                        <h4 class="font-bold text-base text-gray-800">الدفاتر التفاعلية</h4>
+                        <p class="text-xs text-gray-500 mt-1">مكتبة ذكية لكل تخصص.</p>
+                    </div>
+                    <!-- AI Assistants Card -->
+                    <div onclick="switchTab('ai-assistants')" class="content-card highlight-card p-4 flex flex-col items-center justify-center text-center cursor-pointer">
+                        <i data-lucide="brain-circuit" class="w-8 h-8 mb-2 brand-color-primary"></i>
+                        <h4 class="font-bold text-base text-gray-800">المساعدون الأذكياء</h4>
+                        <p class="text-xs text-gray-500 mt-1">أدوات ذكاء اصطناعي عملية.</p>
+                    </div>
+                    <!-- Learn Card -->
+                    <div onclick="switchTab('lectures')" class="content-card highlight-card p-4 flex flex-col items-center justify-center text-center cursor-pointer">
+                        <i data-lucide="graduation-cap" class="w-8 h-8 mb-2 brand-color-primary"></i>
+                        <h4 class="font-bold text-base text-gray-800">تعلم وتطور</h4>
+                        <p class="text-xs text-gray-500 mt-1">محاضرات وكورسات متخصصة.</p>
+                    </div>
+                    <!-- About Card -->
+                    <div onclick="switchTab('about')" class="content-card highlight-card p-4 flex flex-col items-center justify-center text-center cursor-pointer">
+                        <i data-lucide="user-check" class="w-8 h-8 mb-2 brand-color-primary"></i>
+                        <h4 class="font-bold text-base text-gray-800">عن المشروع</h4>
+                        <p class="text-xs text-gray-500 mt-1">تعرف على الرؤية والمؤسس.</p>
+                    </div>
+                </div>
+
+                <!-- Video Section -->
+                <div class="content-card p-5 mb-6">
+                    <h3 class="tab-main-title text-xl font-bold flex items-center"><i data-lucide="video" class="inline-block w-6 h-6 ml-3"></i>جولة سريعة في التطبيق</h3>
+                    <div class="relative w-full overflow-hidden rounded-lg" style="padding-top: 56.25%;">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/npTasyNEoS4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="notice-card content-card p-5 mt-6"><div class="flex items-start"><i data-lucide="shield-check" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div><h4 class="notice-title font-bold text-base mb-1">مراعاة حقوق الملكية</h4><p class="text-sm text-gray-600 leading-relaxed">مراعاةً لحقوق الملكية الفكرية، جميع المصادر المستخدمة في هذا التطبيق هي مصادر قيمة متاحة للعامة. لم يتم إضافة أي محتوى من كورسات مدفوعة لعدم امتلاك إذن من أصحابها.</p></div></div></div>
+            `,
+            notebooks: `
+                <h2 class="tab-main-title text-2xl font-extrabold flex items-center"><i data-lucide="book-open-check" class="inline-block w-6 h-6 ml-3"></i>الدفاتر التفاعلية (NotebookLM)</h2>
+                <p class="text-gray-600 mb-6 text-base leading-relaxed">مجموعة من الدفاتر التفاعلية المُخصصة لكل تخصص، تتيح لك الدراسة والبحث المباشر.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="content-card highlight-card p-4"><h3 class="text-lg font-bold text-gray-700 mb-2 flex items-center brand-color-primary"><i data-lucide="pocket" class="w-5 h-5 ml-2" style="color: #A3C14A;"></i>Operative Dentistry</h3><p class="text-sm text-gray-500 mb-3">طب الأسنان الترميمي والحشوات.</p><a href="https://notebooklm.google.com/notebook/e6568d3c-c4c0-439e-b54a-5ffb6fec1624?authuser=1" target="_blank" class="ai-button block w-full text-center hover:opacity-90 text-white font-bold py-2 rounded-lg transition text-base"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للدفتر</a></div>
+                    <div class="content-card highlight-card p-4"><h3 class="text-lg font-bold text-gray-700 mb-2 flex items-center brand-color-primary"><i data-lucide="activity" class="w-5 h-5 ml-2" style="color: #b91c1c;"></i>Endodontics (Endo)</h3><p class="text-sm text-gray-500 mb-3">علاج الجذور والأعصاب.</p><a href="https://notebooklm.google.com/notebook/dade46c1-5cf6-4304-b7f3-1af93ad628a1?authuser=1" target="_blank" class="ai-button block w-full text-center hover:opacity-90 text-white font-bold py-2 rounded-lg transition text-base"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للدفتر</a></div>
+                    <div class="content-card highlight-card p-4"><h3 class="text-lg font-bold text-gray-700 mb-2 flex items-center brand-color-primary"><i data-lucide="box" class="w-5 h-5 ml-2" style="color: #a855f7;"></i>Fixed Prosthodontics</h3><p class="text-sm text-gray-500 mb-3">التركيبات الثابتة والجسور والتيجان.</p><a href="https://notebooklm.google.com/notebook/878d4014-bf21-464f-a8da-8cb07da2e6d1?authuser=3" target="_blank" class="ai-button block w-full text-center text-white font-bold py-2 rounded-lg text-base"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للدفتر</a></div>
+                    <div class="content-card highlight-card p-4"><h3 class="text-lg font-bold text-gray-700 mb-2 flex items-center brand-color-primary"><i data-lucide="baby" class="w-5 h-5 ml-2" style="color: #ec4899;"></i>Pediatric Dentistry</h3><p class="text-sm text-gray-500 mb-3">طب أسنان الأطفال.</p><a href="https://notebooklm.google.com/notebook/90a3e593-719d-454c-aff2-2171b7a4be6b" target="_blank" class="ai-button block w-full text-center text-white font-bold py-2 rounded-lg text-base"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للدفتر</a></div>
+                    <div class="content-card highlight-card p-4"><h3 class="text-lg font-bold text-gray-700 mb-2 flex items-center brand-color-primary"><i data-lucide="clipboard-list" class="w-5 h-5 ml-2" style="color: #06b6d4;"></i>Perio & Oral Diagnosis</h3><p class="text-sm text-gray-500 mb-3">طب دواعم السن والتشخيص الفموي.</p><a href="https://notebooklm.google.com/notebook/b6b4c736-c317-43c4-aff1-62ef858249a8?authuser=9" target="_blank" class="ai-button block w-full text-center text-white font-bold py-2 rounded-lg text-base"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للدفتر</a></div>
+                    <div class="content-card highlight-card p-4"><h3 class="text-lg font-bold text-gray-700 mb-2 flex items-center brand-color-primary"><i data-lucide="scissors" class="w-5 h-5 ml-2" style="color: #6b7280;"></i>Surgery & X-ray</h3><p class="text-sm text-gray-500 mb-3">جراحة الفم والأشعة السينية.</p><a href="https://notebooklm.google.com/notebook/c8ea37e7-4c49-4b53-924b-6bb36859a58c?authuser=3" target="_blank" class="ai-button block w-full text-center text-white font-bold py-2 rounded-lg text-base"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للدفتر</a></div>
+                    <div class="content-card highlight-card p-4"><h3 class="text-lg font-bold text-gray-700 mb-2 flex items-center brand-color-primary"><i data-lucide="drill" class="w-5 h-5 ml-2" style="color: #6366f1;"></i>Dental Implant</h3><p class="text-sm text-gray-500 mb-3">زراعة الأسنان.</p><a href="https://notebooklm.google.com/notebook/13d58834-366c-4f84-b364-e55c844da493?authuser=1" target="_blank" class="ai-button block w-full text-center text-white font-bold py-2 rounded-lg text-base"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للدفتر</a></div>
+                    <div class="content-card highlight-card p-4"><h3 class="text-lg font-bold text-gray-700 mb-2 flex items-center brand-color-primary"><i data-lucide="camera" class="w-5 h-5 ml-2" style="color: #f59e0b;"></i>Dental Photography</h3><p class="text-sm text-gray-500 mb-3">التصوير الفوتوغرافي لطب الأسنان.</p><a href="https://notebooklm.google.com/notebook/eabb2d5a-b945-4d83-8aba-422df20c6f44?authuser=3" target="_blank" class="ai-button block w-full text-center text-white font-bold py-2 rounded-lg text-base"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للدفتر</a></div>
+                </div>
+                <div class="notice-card content-card p-5 mt-6"><div class="flex items-start"><i data-lucide="info" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div><h4 class="notice-title font-bold text-base mb-1">ملاحظة هامة (RTL)</h4><p class="text-sm text-gray-600 leading-relaxed">لتحسين تنسيق إجابات الشات داخل NotebookLM التي قد لا تدعم العربية بشكل مثالي، انسخ الإجابة واطلب تنسيقها من أي نموذج لغوي آخر دون تغيير المحتوى.</p></div></div></div>
+                `,
+            'ai-assistants': `
+                <h2 class="tab-main-title text-2xl font-extrabold flex items-center">
+                    <i data-lucide="user-cog" class="inline-block w-6 h-6 ml-3"></i>
+                    المساعدون الشخصيون الموصى بهم
+                </h2>
+                <p class="text-base text-gray-700 mb-6 leading-relaxed">انتقل إلى المساعدين الشخصيين المتخصصين لتعزيز مهاراتك.</p>
+                
+                <div class="space-y-4">
+                    <details class="distinct-details-container" open>
+                        <summary class="ai-category-header">
+                            <h4 class="text-lg font-bold flex items-center">
+                                <i data-lucide="wand-2" class="w-5 h-5 inline-block ml-3"></i>هندسة الأوامر الاحترافية (Prompts)
+                            </h4>
+                            <i data-lucide="chevron-left" class="chevron w-5 h-5"></i>
+                        </summary>
+                        <div class="collapsible-content">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="lightbulb" class="w-5 h-5 ml-2 brand-color-accent"></i>مولد الأوامر الذكي</h5><p class="text-sm text-gray-500 mb-3">أداة خارجية تساعدك على بناء أوامر احترافية.</p><a href="https://generateprompt.ai/" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للأداة</a></div>
+                                <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="user-cog" class="w-5 h-5 ml-2 brand-color-accent"></i>Prompt Engineer</h5><p class="text-sm text-gray-500 mb-3">مساعدك الشخصي لإنشاء الأوامر (Prompts) الفعالة.</p><a href="https://chatgpt.com/g/g-5XtVuRE8Y-prompt-engineer" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div>
+                                <div class="highlight-card content-card p-4 md:col-span-2"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="file-text" class="w-5 h-5 ml-2 brand-color-accent"></i>الدليل الشامل لهندسة الأوامر</h5><p class="text-sm text-gray-500 mb-3">مجموعة كبيرة من الأوامر الجاهزة والدلائل الشاملة.</p><a href="https://drive.google.com/drive/folders/1Nqhe2Yksu6e-ci4ajN4sJjZ_3ClwmIxX?usp=sharing" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="download" class="inline-block w-4 h-4 ml-2"></i>الانتقال للدليل</a></div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="library-big" class="w-5 h-5 inline-block ml-3"></i>البحث والتلخيص العلمي</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="search-check" class="w-5 h-5 ml-2 brand-color-accent"></i>Scholar GPT</h5><p class="text-sm text-gray-500 mb-3">تعزيز البحث العلمي بالوصول إلى أكثر من 200 مليون مصدر.</p><a href="https://chatgpt.com/g/g-kZ0eYXlJe-scholar-gpt" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div><div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="bookmark-check" class="w-5 h-5 ml-2 brand-color-accent"></i>Consensus</h5><p class="text-sm text-gray-500 mb-3">أداة بحث تستخرج النتائج من الأوراق العلمية والبحوث المنشورة.</p><a href="https://chatgpt.com/g/g-bo0FiWLY7-consensus" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div><div class="highlight-card content-card p-4 md:col-span-2"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="file-text" class="w-5 h-5 ml-2 brand-color-accent"></i>دليل أوامر البحث العلمي</h5><p class="text-sm text-gray-500 mb-3">ملف يحتوي على أفضل الأوامر الاحترافية المخصصة للبحث العلمي.</p><a href="https://drive.google.com/file/d/122N6rG3T5DGWuOvAnHeHpbuBGggGQOFu/view?usp=sharing" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="download" class="inline-block w-4 h-4 ml-2"></i>تحميل الدليل</a></div></div></div></details>
+                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="type" class="w-5 h-5 inline-block ml-3"></i>الكتابة والتنسيق العام</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="sparkles" class="w-5 h-5 ml-2 brand-color-accent"></i>Smarter Mood</h5><p class="text-sm text-gray-500 mb-3">مدرب على أسلوبي في التلخيص لشرح أي موضوع ببساطة.</p><a href="https://chatgpt.com/g/g-68f0f763bd24819192d82c0187cad244-smarter-mood" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>ChatGPT</a></div>
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="sparkles" class="w-5 h-5 ml-2 brand-color-accent"></i>Formatter Mood</h5><p class="text-sm text-gray-500 mb-3">لإعادة صياغة وتهذيب أي نص دون تغيير المحتوى.</p><a href="https://gemini.google.com/gem/11YKs3EHRxG92WWbSdsre66-OV8z2UK8C?usp=sharing" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>Gemini</a></div>
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="presentation" class="w-5 h-5 ml-2 brand-color-accent"></i>Presentation Mood</h5><p class="text-sm text-gray-500 mb-3">يساعدك تعمل برزينتيشن احترافية من أي محتوى.</p><a href="https://gemini.google.com/gem/12j5kEmugQ3cWImOvPmwZurTMKtgB-S-R?usp=sharing" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>Gemini</a></div>
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="sparkles" class="w-5 h-5 ml-2 text-blue-500"></i>الملخصاتي الخبير</h5><p class="text-sm text-gray-500 mb-3">مساعد شخصي للتلخيص العلمي بلهجة عربية خالصة.</p><a href="https://gemini.google.com/gem/1LLwEDSBrhtqAhFNxeqBLy8zRkrR5Ulq-?usp=sharing" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div>
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="sparkles" class="w-5 h-5 ml-2 text-blue-500"></i>المنسق المحترف</h5><p class="text-sm text-gray-500 mb-3">للتنسيق الاحترافي للنصوص وإضافة لمسة احترافية.</p><a href="https://gemini.google.com/u/0/gem/a41d02a879cc" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div>
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="user-square" class="w-5 h-5 ml-2 brand-color-accent"></i>AI Humanizer</h5><p class="text-sm text-gray-500 mb-3">لتحويل النصوص المولدة آلياً لمحتوى بلمسة بشرية.</p><a href="https://chatgpt.com/g/g-2azCVmXdy-ai-humanizer" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div>
+                    </div></div></details>
+                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="megaphone" class="w-5 h-5 inline-block ml-3"></i>التسويق وصناعة المحتوى</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="trending-up" class="w-5 h-5 ml-2 brand-color-accent"></i>Ask Hani Shaker 3.0</h5><p class="text-sm text-gray-500 mb-3">مساعد متخصص في التسويق وصناعة المحتوى.</p><a href="https://chatgpt.com/g/g-68d1d01909d48191840bb52975a4b1e9-ask-hani-shaker-3-0" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div><div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="edit" class="w-5 h-5 ml-2 brand-color-accent"></i>Copywriter GPT</h5><p class="text-sm text-gray-500 mb-3">خبير في صياغة الإعلانات، التسويق، وبناء العلامات التجارية.</p><a href="https://chatgpt.com/g/g-Ji2QOyMml-copywriter-gpt-marketing-branding-ads" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div></div></div></details>
+                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="tooth" class="w-5 h-5 inline-block ml-3"></i>Dental GPTs</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="camera" class="w-5 h-5 ml-2 brand-color-accent"></i>Dental Photography</h5><p class="text-sm text-gray-500 mb-3">مساعد متخصص في التصوير الفوتوغرافي لطب الأسنان.</p><a href="https://gemini.google.com/u/0/gem/43ba11a3a007" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div></div></div></details>
+                    
+                    <!-- Premium Section -->
+                    <details class="distinct-details-container">
+                        <summary class="ai-category-header premium-header">
+                            <h4 class="text-lg font-bold flex items-center">
+                                <i data-lucide="gem" class="w-5 h-5 inline-block ml-3"></i>المساعدون الذهبيون (حصرياً للمشتركين)
+                            </h4>
+                            <i data-lucide="chevron-left" class="chevron w-5 h-5"></i>
+                        </summary>
+                        <div class="collapsible-content">
+                            <p class="text-base text-gray-700 mb-4 text-center">هذه المساعدات هي بونص خاص بطلبة كورس Smarter With Ai. القائمة تتحدث باستمرار وتتم زيادة كفائتها.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
+                                    <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="bot" class="w-5 h-5 ml-2 brand-color-accent"></i>Prompt Mood</h5>
+                                    <p class="text-sm text-gray-500">مهندس أوامر لصياغة أوامر احترافية بناءً على طلبك.</p>
+                                </div>
+                                <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
+                                    <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="search-code" class="w-5 h-5 ml-2 brand-color-accent"></i>Search Mood</h5>
+                                    <p class="text-sm text-gray-500">يساعدك على صياغة أوامر احترافية للبحث الشامل والدقيق.</p>
+                                </div>
+                                <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
+                                    <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="notebook-text" class="w-5 h-5 ml-2 brand-color-accent"></i>NotebookLM Mood</h5>
+                                    <p class="text-sm text-gray-500">مساعد متخصص لإنشاء ملخصات وفلاش كاردز من مصادرك.</p>
+                                </div>
+                                <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
+                                    <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="gem" class="w-5 h-5 ml-2 brand-color-accent"></i>Gem Builder Mood</h5>
+                                    <p class="text-sm text-gray-500">لبناء أي مساعد شخصي (Gem/GPT) بشكل ذكي وكفء.</p>
+                                </div>
+                                <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
+                                    <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="layout-template" class="w-5 h-5 ml-2 brand-color-accent"></i>Web/App Mood</h5>
+                                    <p class="text-sm text-gray-500">مساعدك الخاص لإنشاء المواقع والتطبيقات الاحترافية.</p>
+                                </div>
+                                <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
+                                    <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="video" class="w-5 h-5 ml-2 brand-color-accent"></i>Video Mood</h5>
+                                    <p class="text-sm text-gray-500">لعمل أوامر احترافية لإنشاء الفيديوهات والقصص الكاملة.</p>
+                                </div>
+                                <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
+                                    <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="image" class="w-5 h-5 ml-2 brand-color-accent"></i>Image Mood</h5>
+                                    <p class="text-sm text-gray-500">لكتابة أوامر احترافية لإنشاء الصور واستخراج الأوامر منها.</p>
+                                </div>
+                                <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
+                                    <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="pie-chart" class="w-5 h-5 ml-2 brand-color-accent"></i>Infographic Mood</h5>
+                                    <p class="text-sm text-gray-500">لعمل انفوجرافيك احترافي من أي نص أو محاضرة.</p>
+                                </div>
+                                <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
+                                    <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="zap" class="w-5 h-5 ml-2 brand-color-accent"></i>Idea Mood</h5>
+                                    <p class="text-sm text-gray-500">مساعد متخصص في توليد الأفكار الإبداعية وتطويرها.</p>
+                                </div>
+                                <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
+                                    <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="line-chart" class="w-5 h-5 ml-2 brand-color-accent"></i>Marketing Mood</h5>
+                                    <p class="text-sm text-gray-500">مساعدك لوضع استراتيجيات التسويق وصناعة المحتوى.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+                `,
+            lectures: `
+                <h2 class="tab-main-title text-2xl font-extrabold flex items-center"><i data-lucide="graduation-cap" class="inline-block w-6 h-6 ml-3"></i>تعلم وتطور (Learn)</h2>
+                <p class="text-base text-gray-700 mb-6 leading-relaxed">مساحتك التعليمية لتطوير مهاراتك في دمج الذكاء الاصطناعي مع طب الأسنان، من خلال كورسات متخصصة ومحاضرات عملية.</p>
+                
+                <div class="content-card p-5 mb-6 learning-space-card border-2">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center">
+                        <i data-lucide="layout-template" class="w-6 h-6 ml-3 brand-color-accent"></i>
+                        تطبيق Mahmoud's Learning Space
+                    </h3>
+                    <p class="text-base text-gray-600 mb-4 leading-relaxed">
+                        بوابتك الأخرى للمعرفة، تطبيق متخصص يجمع كل مساحاتي التعليمية ومشاريعي في مكان واحد.
+                    </p>
+                    <a href="https://mahmoudtaru.github.io/Mahmoud-s-learning-space-app/" target="_blank" class="ai-button inline-flex items-center justify-center w-full text-base">
+                        <i data-lucide="external-link" class="w-5 h-5 ml-2"></i>
+                        استكشف التطبيق الآن
+                    </a>
+                </div>
+
+                <div class="bg-red-600 p-5 content-card mb-6 text-white text-center shadow-lg border-b-4 border-red-700"><h3 class="text-xl font-bold mb-2 flex items-center justify-center"><i data-lucide="youtube" class="w-6 h-6 ml-2 text-white"></i>قناة اليوتيوب الرسمية</h3><p class="text-base opacity-90 mb-4">شروحاتنا عن الذكاء الاصطناعي وأفضل الملخصات المرئية لكل تخصص.</p><a href="https://www.youtube.com/@SmarterwithAI-mood/playlists" target="_blank" class="inline-flex items-center justify-center bg-white text-red-600 hover:bg-gray-200 font-bold py-2 px-6 rounded-full transition text-base shadow-md"><i data-lucide="monitor-play" class="w-5 h-5 ml-2"></i>مشاهدة القناة</a></div>
+                
+                <details class="distinct-details-container mb-6">
+                    <summary class="ai-category-header">
+                        <h3 class="text-xl font-bold flex items-center"><i data-lucide="sparkles" class="w-6 h-6 inline-block ml-3"></i>محاضرات المهارات الأساسية</h3>
+                        <i data-lucide="chevron-left" class="chevron w-5 h-5"></i>
+                    </summary>
+                    <div class="collapsible-content">
+                        <div class="space-y-6">
+                            <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="search" class="w-5 h-5 ml-3 brand-color-accent"></i>البحث في عصر الذكاء الاصطناعي</h3><div class="flex flex-col sm:flex-row justify-start items-center gap-3 text-sm"><a href="https://t.me/Smarter_With_Ai/93" target="_blank" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="play-circle" class="w-4 h-4 ml-2"></i>شاهد المحاضرة</a><a href="https://drive.google.com/file/d/1HhHulHiHBm6o7c7Yv8yQ1pPSECiWitYk/view?usp=sharing" target="_blank" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="file-text" class="w-4 h-4 ml-2"></i>دليل المحاضرة</a></div></div>
+                            <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="graduation-cap" class="w-5 h-5 ml-3 brand-color-accent"></i>ازاي تتعلم وتذاكر بالـ AI</h3><div class="flex flex-col sm:flex-row justify-start items-center gap-3 text-sm"><a href="https://t.me/Smarter_With_Ai/103" target="_blank" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="play-circle" class="w-4 h-4 ml-2"></i>شاهد المحاضرة</a><a href="https://drive.google.com/file/d/1X8k3Q4kzHiqvMy64y3mKLuZ1zSa9XWHO/view?usp=sharing" target="_blank" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="file-text" class="w-4 h-4 ml-2"></i>دليل المحاضرة</a></div></div>
+                            <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="notebook-text" class="w-5 h-5 ml-3 brand-color-accent"></i>كل ما تحتاج معرفته عن NotebookLM</h3><div class="flex flex-col sm:flex-row justify-start items-center gap-3 text-sm"><a href="https://t.me/Mahmoud_learning_space/215" target="_blank" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="play-circle" class="w-4 h-4 ml-2"></i>شاهد المحاضرة</a><a href="https://drive.google.com/file/d/1VhT-8jYdNfYYGcGCp4WVaVsIPH7cnrSA/view?usp=sharing" target="_blank" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="file-text" class="w-4 h-4 ml-2"></i>دليل المحاضرة</a></div></div>
+                            <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="bot" class="w-5 h-5 ml-3 brand-color-accent"></i>دليلك لبناء مساعد شخصي</h3><div class="flex flex-col sm:flex-row justify-start items-center gap-3 text-sm"><a href="https://t.me/Smarter_With_Ai/117" target="_blank" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="play-circle" class="w-4 h-4 ml-2"></i>شاهد المحاضرة</a><a href="https://drive.google.com/file/d/1-XK3ID_S5NGh--tyanF623yxcU6rvBQI/view?usp=sharing" target="_blank" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="file-text" class="w-4 h-4 ml-2"></i>دليل المحاضرة</a></div></div>
+                            <div class="p-5 rounded-lg text-center text-base mt-4 notebook-helper-card"><p class="font-bold text-gray-700 mb-3">للاستعانة في مذاكرة المحاضرات:</p><a href="https://notebooklm.google.com/notebook/6d66f076-72e9-4461-8dea-a8a4a8355768" target="_blank" class="ai-button inline-flex items-center justify-center w-full sm:w-auto px-6"><i data-lucide="book-open" class="w-5 h-5 ml-2"></i>النوت بوك التفاعلي</a></div>
+                        </div>
+                    </div>
+                </details>
+
+                <div class="content-card p-5 mt-6 bg-[var(--brand-primary)] text-white text-center shadow-lg border-b-4 border-[var(--brand-accent)]"><h3 class="text-xl font-bold mb-2 flex items-center justify-center"><i data-lucide="award" class="w-6 h-6 ml-2 text-[var(--brand-accent)]"></i>كورسات Smarter With Ai</h3><p class="text-base opacity-90 mb-4">برامج تدريبية متعمقة لتتقن استخدام الذكاء الاصطناعي.</p><a href="https://mahmoudtaru.github.io/Smarter-With-Ai-Course---First-Batch/" target="_blank" class="inline-flex items-center justify-center bg-[var(--brand-accent)] text-white hover:opacity-90 font-bold py-2 px-6 rounded-full transition text-base shadow-md"><i data-lucide="graduation-cap" class="w-5 h-5 ml-2"></i>اكتشف الكورسات</a></div>
+                `,
+            about: `
+                <h2 class="tab-main-title text-2xl font-extrabold flex items-center"><i data-lucide="user-check" class="inline-block w-6 h-6 ml-3"></i>عن المشروع والمؤسس</h2>
+                <div class="content-card highlight-card p-6 mb-6 text-center flex flex-col items-center">
+                    <img src="https://i.postimg.cc/j2T1s5M6/me.jpg" alt="صورة د. محمود حرب" class="w-28 h-28 rounded-full mb-4 shadow-lg border-4 border-[var(--brand-accent)]">
+                    <h3 class="text-2xl font-extrabold text-gray-800">د. محمود حرب</h3>
+                    <p class="text-lg brand-color-primary dark:text-[var(--brand-accent)] font-bold mb-4">طبيب أسنان ومدرّب ذكاء اصطناعي</p>
+                    <p class="text-gray-600 leading-relaxed text-base max-w-md mx-auto mb-6">الهدف هو تبسيط الذكاء الاصطناعي وتوصيله كأدوات وحلول عملية قابلة للتطبيق في الممارسة المهنية والحياة اليومية.</p>
+                    <div class="w-full border-t border-[var(--light-border)] dark:border-[var(--dark-border)] pt-6 mt-6">
+                        <a href="https://linktr.ee/Mahmoud_harb18" target="_blank" class="ai-button inline-flex items-center justify-center w-full md:w-auto px-6 py-2.5 text-base">
+                            <i data-lucide="briefcase" class="w-5 h-5 ml-2"></i>
+                            <span>ملف أعمالي وحساباتي</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="notice-card content-card p-5 mb-6"><h3 class="text-lg font-bold notice-title mb-3 flex items-center"><i data-lucide="star" class="w-6 h-6 ml-3 notice-icon"></i>تقييم التطبيق واقتراحاتكم</h3><p class="text-gray-700 leading-relaxed text-base mb-4 dark:text-gray-300">مساهمتكم في التقييم ضرورية لتحسين المحتوى والأدوات. شاركونا المميزات، العيوب، والاقتراحات.</p><a href="https://forms.gle/ynqM7gwn139geFG67" target="_blank" class="ai-button inline-flex items-center justify-center w-full text-base"><i data-lucide="clipboard-pen" class="w-5 h-5 ml-2"></i>انتقل لنموذج التقييم</a></div>
+                <div class="content-card highlight-card p-5 mb-6"><h3 class="text-xl font-bold text-gray-800 mb-4">تابعنا وشاركنا</h3><div class="flex flex-col gap-4">
+                    <a href="https://t.me/Smarter_With_Ai" target="_blank" class="social-link text-base"><i data-lucide="send" class="w-5 h-5 ml-3"></i><span>قناة التيليجرام</span></a>
+                    <a href="https://www.facebook.com/share/g/16YddKnEXe/" target="_blank" class="social-link text-base"><i data-lucide="facebook" class="w-5 h-5 ml-3"></i><span>جروب الفيسبوك</span></a>
+                    <a href="https://www.youtube.com/@SmarterwithAI-mood/playlists" target="_blank" class="social-link text-base"><i data-lucide="youtube" class="w-5 h-5 ml-3"></i><span>قناة اليوتيوب</span></a>
+                </div></div>
+                <details class="distinct-details-container mb-6">
+                    <summary class="ai-category-header">
+                        <h3 class="text-xl font-bold flex items-center"><i data-lucide="download" class="w-6 h-6 inline-block ml-3"></i>طريقة تثبيت التطبيق</h3>
+                        <i data-lucide="chevron-left" class="chevron w-5 h-5"></i>
+                    </summary>
+                    <div class="collapsible-content space-y-4">
+                        <div>
+                            <h4 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="smartphone" class="w-5 h-5 ml-2 brand-color-accent"></i>على الموبايل</h4>
+                            <ol class="list-decimal list-inside space-y-1 text-gray-600">
+                                <li>اضغط على الثلاث نقاط (أو زر المشاركة) في المتصفح.</li>
+                                <li>اختر "إضافة إلى الشاشة الرئيسية" (Add to Home Screen).</li>
+                                <li>أدخل اسم التطبيق ثم اضغط "إضافة" (Add).</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="laptop" class="w-5 h-5 ml-2 brand-color-accent"></i>على اللابتوب</h4>
+                            <ol class="list-decimal list-inside space-y-1 text-gray-600">
+                                <li>اضغط على النجمة (&#9733;) في شريط العنوان.</li>
+                                <li>اختر "Add Bookmark" أو "إضافة إشارة مرجعية".</li>
+                            </ol>
+                        </div>
+                    </div>
+                </details>
+                <div class="content-card highlight-card p-5 mb-6 text-center">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2 flex items-center justify-center"><i data-lucide="share-2" class="w-6 h-6 ml-3 brand-color-accent"></i>شاركه لمضاعفة الثواب</h3>
+                    <p class="text-sm text-gray-500 mb-4">"الدال على الخير كفاعله"</p>
+                    <input type="text" id="appLink" value="https://mahmoudtaru.github.io/Smarter-With-Ai-course/" readonly class="w-full text-center p-2 rounded-md border border-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 text-sm share-input">
+                    <div class="flex flex-col sm:flex-row gap-3 mt-4">
+                        <button onclick="copyAppLink()" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="copy" class="w-4 h-4 ml-2"></i>نسخ الرابط</button>
+                        <button onclick="shareAppLink()" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="send" class="w-4 h-4 ml-2"></i>مشاركة التطبيق</button>
+                    </div>
+                </div>
+                <div class="content-card p-6 text-center" style="background: linear-gradient(135deg, rgba(11, 61, 76, 0.05), rgba(163, 193, 74, 0.05));">
+                    <i data-lucide="heart" class="w-10 h-10 brand-color-accent fill-[var(--brand-accent)] mb-3 inline-block"></i>
+                    <h3 class="text-2xl font-extrabold brand-color-primary">لا تنسانا من خالص دعائك</h3>
+                </div>
+                `
+        };
+
+        // ====================================================================
+        // دوال التطبيق الرئيسية (Main App Logic)
+        // ====================================================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // تهيئة التطبيق بعد تحميل الصفحة
+            initializeApp();
+        });
+        
+        function initializeApp() {
+            // 1. إعداد الوضع الداكن/الفاتح
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(savedTheme === 'dark' || (!savedTheme && prefersDark));
+            document.getElementById('modeToggle').addEventListener('click', () => applyTheme(!document.documentElement.classList.contains('dark')));
+            
+            // 2. إعداد أزرار التنقل
+            document.querySelectorAll('.nav-item').forEach(button => button.addEventListener('click', () => switchTab(button.dataset.tab)));
+            
+            // 3. إعداد زر البداية في شاشة البداية
+            document.getElementById('getStartedButton').addEventListener('click', () => {
+                const splashScreen = document.getElementById('splash-screen');
+                const mainContent = document.getElementById('main-content');
+                splashScreen.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+                // تحميل أول تبويب بعد إخفاء شاشة البداية
+                switchTab('home');
+            });
+            
+            // 4. بدء عرض شاشة البداية
+            startSplashScreenAnimation();
+            
+            // 5. استدعاء Lucide لتفعيل الأيقونات
+            lucide.createIcons();
+        }
+
+        function applyTheme(isDark) {
+            document.documentElement.classList.toggle('dark', isDark);
+            document.getElementById('modeIcon').setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            lucide.createIcons();
+        }
+
+        function switchTab(tabName) {
+            const contentContainer = document.getElementById(tabName);
+            if (appContent[tabName] && contentContainer) {
+                // إخفاء كل التبويبات ثم عرض التبويب المطلوب
+                document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
+                contentContainer.innerHTML = appContent[tabName]; // حقن المحتوى
+                contentContainer.classList.remove('hidden', 'active-tab');
+                void contentContainer.offsetWidth; // خدعة لإعادة تشغيل الأنيميشن
+                contentContainer.classList.add('active-tab');
+            }
+            
+            // تحديث حالة النشاط في شريط التنقل
+            document.querySelector('.nav-item.active')?.classList.remove('active');
+            document.querySelector(`.nav-item[data-tab="${tabName}"]`)?.classList.add('active');
+            
+            lucide.createIcons();
+            // إعادة ربط الأحداث للأزرار الديناميكية داخل التبويب الجديد
+            setupDynamicEventListeners(tabName);
+        }
+
+        function setupDynamicEventListeners(tabName) {
+             if (tabName === 'ai-assistants') {
+                // لا يوجد أدوات مباشرة لربط الأحداث بها
+            }
+        }
+
+        // ====================================================================
+        // دوال شاشة البداية والأنيميشن
+        // ====================================================================
+        function typewriter(element, text, speed = 75) {
+            return new Promise((resolve) => {
+                let i = 0;
+                element.innerHTML = '';
+                element.classList.add('typing-cursor');
+                const type = () => {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i++);
+                        setTimeout(type, speed);
+                    } else {
+                        element.classList.remove('typing-cursor');
+                        resolve();
+                    }
+                };
+                type();
+            });
+        }
+
+        async function startSplashScreenAnimation() {
+            document.querySelector('.splash-logo').style.opacity = 1;
+            const getStartedButton = document.getElementById('getStartedButton');
+            await new Promise(resolve => setTimeout(resolve, 500)); 
+            
+            await new Promise(resolve => setTimeout(resolve, 300));
+            await typewriter(document.getElementById('splash-subtitle'), "مساعدك الذكي لتعلم وممارسة طب الأسنان", 50);
+            
+            getStartedButton.classList.add('visible');
+            
+            setTimeout(() => {
+                getStartedButton.classList.add('shimmer');
+                setTimeout(() => getStartedButton.classList.remove('shimmer'), 1500); 
+            }, 800); 
+        }
+
+        // ====================================================================
+        // دوال التواصل مع Gemini API (LLM & TTS)
+        // ====================================================================
+        async function fetchWithRetry(url, options, attempt = 1) {
+            try {
+                const response = await fetch(url, options);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return response;
+            } catch (error) {
+                if (attempt < 3) {
+                    await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt - 1)));
+                    return fetchWithRetry(url, options, attempt + 1);
+                }
+                console.error("All retry attempts failed.", error);
+                throw new Error("Failed to fetch data after multiple retries.");
+            }
+        }
+        
+        async function callGeminiLlm(prompt, outputElementId) {
+            const outputElement = document.getElementById(outputElementId);
+            outputElement.innerHTML = `<div class="flex justify-center items-center p-4"><i data-lucide="loader-circle" class="w-6 h-6 inline-block animate-spin brand-color-primary"></i><p class="mr-3 text-gray-600 dark:text-gray-300">جاري التحليل...</p></div>`;
+            lucide.createIcons();
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const systemPrompt = "Act as a specialized dental practitioner and AI assistant. Your response MUST be concise, accurate, and structured. Use lists and clear headings in Arabic. Do NOT give medical advice. Only provide educational and differential diagnostic assistance.";
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                tools: [{ "google_search": {} }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            try {
+                const response = await fetchWithRetry(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "عذراً، لم أتمكن من توليد استجابة واضحة. يرجى المحاولة مرة أخرى.";
+                outputElement.textContent = text;
+            } catch (error) {
+                outputElement.textContent = `حدث خطأ: فشل الاتصال بخدمة الذكاء الاصطناعي. ${error.message}`;
+            }
+        }
+        
+        async function generateTtsSummary(event, text) {
+            const ttsButton = event.currentTarget;
+            const originalText = ttsButton.innerHTML;
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            ttsButton.disabled = true;
+            ttsButton.innerHTML = `<i data-lucide="volume-2" class="w-4 h-4 inline-block animate-pulse ml-1"></i> جاري...`;
+            lucide.createIcons();
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: `قل بصوت واضح وهادئ (Clear) باللغة العربية: ${text}` }] }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Iapetus" } } }
+                },
+                model: "gemini-2.5-flash-preview-tts"
+            };
+
+            try {
+                const response = await fetchWithRetry(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType && mimeType.startsWith("audio/L16")) {
+                    const sampleRateMatch = mimeType.match(/rate=(\d+)/);
+                    if (!sampleRateMatch) throw new Error("Could not determine sample rate.");
+                    const sampleRate = parseInt(sampleRateMatch[1], 10);
+                    const pcm16 = new Int16Array(base64ToArrayBuffer(audioData));
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    const audio = new Audio(audioUrl);
+                    currentAudio = audio;
+                    audio.play();
+                    audio.onended = () => {
+                        ttsButton.disabled = false;
+                        ttsButton.innerHTML = originalText;
+                        currentAudio = null;
+                    };
+                } else {
+                    throw new Error("Invalid audio data received.");
+                }
+            } catch (error) {
+                console.error("TTS API call failed:", error);
+                showCustomMessage("عفواً، حدث خطأ في الاتصال بخدمة توليد الصوت.");
+                ttsButton.disabled = false;
+                ttsButton.innerHTML = originalText;
+            }
+        }
+        
+        // ====================================================================
+        // دوال مساعدة (Helpers)
+        // ====================================================================
+        function showPremiumAlert() {
+            showCustomMessage("هؤلاء المساعدون متاحون حصرياً لطلبة كورس Smarter With Ai.");
+        }
+
+        function copyAppLink() {
+            const linkInput = document.getElementById('appLink');
+            linkInput.select();
+            linkInput.setSelectionRange(0, 99999); // For mobile devices
+            try {
+                // Fallback for older browsers
+                document.execCommand('copy');
+                showCustomMessage("تم نسخ الرابط بنجاح!");
+            } catch (err) {
+                showCustomMessage("فشل نسخ الرابط. يرجى النسخ يدوياً.");
+            }
+        }
+
+        function shareAppLink() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Smarter Dentists With Ai',
+                    text: 'اكتشف مساعد طب الأسنان الذكي!',
+                    url: APP_LINK_TO_SHARE,
+                }).catch((error) => console.log('Error sharing', error));
+            } else {
+                copyAppLink();
+                showCustomMessage("المشاركة غير مدعومة على هذا المتصفح. تم نسخ الرابط بدلاً من ذلك.");
+            }
+        }
+
+        function showCustomMessage(message) {
+            const messageBox = document.createElement('div');
+            messageBox.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-[101] p-4';
+            messageBox.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm text-center w-full dark:bg-gray-800 animate-fadeIn">
+                    <p class="text-lg font-semibold text-gray-800 mb-4 dark:text-gray-100">${message}</p>
+                    <button onclick="this.closest('.fixed').remove()" class="ai-button w-full">إغلاق</button>
+                </div>`;
+            document.body.appendChild(messageBox);
+        }
+
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcm16, sampleRate) {
+            const buffer = new ArrayBuffer(44 + pcm16.length * 2);
+            const view = new DataView(buffer);
+            const writeString = (view, offset, string) => {
+                for (let i = 0; i < string.length; i++) view.setUint8(offset + i, string.charCodeAt(i));
+            };
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + pcm16.length * 2, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, pcm16.length * 2, true);
+            for (let i = 0; i < pcm16.length; i++) {
+                view.setInt16(44 + i * 2, pcm16[i], true);
+            }
+            return new Blob([view], { type: 'audio/wav' });
+        }
+    </script>
+</body>
+</html>
+
