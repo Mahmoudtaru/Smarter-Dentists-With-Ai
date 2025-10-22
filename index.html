@@ -125,13 +125,8 @@
         .dark .notice-card { background-color: rgba(163, 193, 74, 0.1); border-top-color: var(--brand-accent); }
         .dark .notice-title { color: var(--brand-accent) !important; }
         .dark .hero-section { background: linear-gradient(135deg, rgba(11, 61, 76, 0.5), rgba(163, 193, 74, 0.3)); }
-        
-        .dark .ai-category-header:not(.premium-header) h4,
-        .dark .ai-category-header:not(.premium-header) .chevron,
-        .dark .ai-category-header:not(.premium-header) h4 i { 
-            color: var(--brand-accent) !important; 
-        }
         .dark .ai-category-header { background-color: #112d3c; border-color: var(--dark-border); }
+        .dark .ai-category-header h4, .dark .ai-category-header .chevron, .dark .ai-category-header h4 i { color: var(--brand-accent) !important; }
         .dark .highlight-card { border-top-color: var(--brand-accent); }
         .dark .highlight-card:hover { border-color: var(--brand-accent); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); }
         .dark .premium-card { opacity: 0.6; background-color: var(--dark-card-bg); }
@@ -284,7 +279,7 @@
         }
         .dark .collapsible-content { border-top: 1px solid var(--dark-border); }
         .dark details { border-color: var(--dark-border); }
-        .dark .ai-category-details { border-color: var(--dark-border); }
+        .dark .distinct-details-container { border-color: var(--brand-accent); }
 
         
         /* NEW STYLES for Learn Section */
@@ -449,7 +444,7 @@
         // ====================================================================
         const apiKey = ""; // سيتم توفيره تلقائياً
         let currentAudio = null; // لإدارة الصوتيات ومنع التداخل
-        const APP_LINK_TO_SHARE = "https://mahmoudtaru.github.io/Smarter-With-Ai-course/";
+        const APP_LINK_TO_SHARE = "https://mahmoudtaru.github.io/Smarter-Dentists-With-Ai/";
 
         // ====================================================================
         // محتوى التطبيق الديناميكي: تم نقل كل المحتوى هنا لمنع الحذف
@@ -642,7 +637,7 @@
                     </div>
                 </details>
 
-                <div class="content-card p-5 mt-6 bg-[var(--brand-primary)] text-white text-center shadow-lg border-b-4 border-[var(--brand-accent)]"><h3 class="text-xl font-bold mb-2 flex items-center justify-center"><i data-lucide="award" class="w-6 h-6 ml-2 text-[var(--brand-accent)]"></i>كورسات Smarter With Ai</h3><p class="text-base opacity-90 mb-4">برامج تدريبية متعمقة لتتقن استخدام الذكاء الاصطناعي.</p><a href="https://mahmoudtaru.github.io/Smarter-With-Ai-Course---First-Batch/" target="_blank" class="inline-flex items-center justify-center bg-[var(--brand-accent)] text-white hover:opacity-90 font-bold py-2 px-6 rounded-full transition text-base shadow-md"><i data-lucide="graduation-cap" class="w-5 h-5 ml-2"></i>اكتشف الكورسات</a></div>
+                <div class="content-card p-5 mt-6 bg-[var(--brand-primary)] text-white text-center shadow-lg border-b-4 border-[var(--brand-accent)]"><h3 class="text-xl font-bold mb-2 flex items-center justify-center"><i data-lucide="award" class="w-6 h-6 ml-2 text-[var(--brand-accent)]"></i>كورسات Smarter With Ai</h3><p class="text-base opacity-90 mb-4">برامج تدريبية متعمقة لتتقن استخدام الذكاء الاصطناعي.</p><a href="https://mahmoudtaru.github.io/Smarter-With-Ai-course/" target="_blank" class="inline-flex items-center justify-center bg-[var(--brand-accent)] text-white hover:opacity-90 font-bold py-2 px-6 rounded-full transition text-base shadow-md"><i data-lucide="graduation-cap" class="w-5 h-5 ml-2"></i>اكتشف الكورسات</a></div>
                 `,
             about: `
                 <h2 class="tab-main-title text-2xl font-extrabold flex items-center"><i data-lucide="user-check" class="inline-block w-6 h-6 ml-3"></i>عن المشروع والمؤسس</h2>
@@ -658,7 +653,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="notice-card content-card p-5 mb-6"><h3 class="text-lg font-bold notice-title mb-3 flex items-center"><i data-lucide="star" class="w-6 h-6 ml-3 notice-icon"></i>تقييم التطبيق واقتراحاتكم</h3><p class="text-gray-700 leading-relaxed text-base mb-4 dark:text-gray-300">مساهمتكم في التقييم ضرورية لتحسين المحتوى والأدوات. شاركونا المميزات، العيوب، والاقتراحات.</p><a href="https://forms.gle/ynqM7gwn139geFG67" target="_blank" class="ai-button inline-flex items-center justify-center w-full text-base"><i data-lucide="clipboard-pen" class="w-5 h-5 ml-2"></i>انتقل لنموذج التقييم</a></div>
+                <div class="notice-card content-card p-5 mb-6"><h3 class="text-lg font-bold notice-title mb-3 flex items-center"><i data-lucide="star" class="w-6 h-6 ml-3 notice-icon"></i>تقييم التطبيق واقتراحاتكم</h3><p class="text-gray-700 leading-relaxed text-base mb-4 dark:text-gray-300">مساهمتكم في التقييم ضرورية لتحسين المحتوى والأدوات. شاركونا المميزات، العيوب، والاقتراحات.</p><a href="https://forms.gle/agZbg5PHz19kiBuQ9" target="_blank" class="ai-button inline-flex items-center justify-center w-full text-base"><i data-lucide="clipboard-pen" class="w-5 h-5 ml-2"></i>انتقل لنموذج التقييم</a></div>
                 <div class="content-card highlight-card p-5 mb-6"><h3 class="text-xl font-bold text-gray-800 mb-4">تابعنا وشاركنا</h3><div class="flex flex-col gap-4">
                     <a href="https://t.me/Smarter_With_Ai" target="_blank" class="social-link text-base"><i data-lucide="send" class="w-5 h-5 ml-3"></i><span>قناة التيليجرام</span></a>
                     <a href="https://www.facebook.com/share/g/16YddKnEXe/" target="_blank" class="social-link text-base"><i data-lucide="facebook" class="w-5 h-5 ml-3"></i><span>جروب الفيسبوك</span></a>
@@ -690,7 +685,7 @@
                 <div class="content-card highlight-card p-5 mb-6 text-center">
                     <h3 class="text-xl font-bold text-gray-800 mb-2 flex items-center justify-center"><i data-lucide="share-2" class="w-6 h-6 ml-3 brand-color-accent"></i>شاركه لمضاعفة الثواب</h3>
                     <p class="text-sm text-gray-500 mb-4">"الدال على الخير كفاعله"</p>
-                    <input type="text" id="appLink" value="https://mahmoudtaru.github.io/Smarter-With-Ai-course/" readonly class="w-full text-center p-2 rounded-md border border-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 text-sm share-input">
+                    <input type="text" id="appLink" value="https://mahmoudtaru.github.io/Smarter-Dentists-With-Ai/" readonly class="w-full text-center p-2 rounded-md border border-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 text-sm share-input">
                     <div class="flex flex-col sm:flex-row gap-3 mt-4">
                         <button onclick="copyAppLink()" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="copy" class="w-4 h-4 ml-2"></i>نسخ الرابط</button>
                         <button onclick="shareAppLink()" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="send" class="w-4 h-4 ml-2"></i>مشاركة التطبيق</button>
