@@ -125,21 +125,40 @@
         .dark .notice-card { background-color: rgba(163, 193, 74, 0.1); border-top-color: var(--brand-accent); }
         .dark .notice-title { color: var(--brand-accent) !important; }
         .dark .hero-section { background: linear-gradient(135deg, rgba(11, 61, 76, 0.5), rgba(163, 193, 74, 0.3)); }
+        
+        .dark .ai-category-header:not(.premium-header) h4, 
+        .dark .ai-category-header:not(.premium-header) .chevron, 
+        .dark .ai-category-header:not(.premium-header) h4 i { 
+            color: var(--brand-accent) !important; 
+        }
         .dark .ai-category-header { background-color: #112d3c; border-color: var(--dark-border); }
-        .dark .ai-category-header h4, .dark .ai-category-header .chevron, .dark .ai-category-header h4 i { color: var(--brand-accent) !important; }
-        .dark .highlight-card { border-top-color: var(--brand-accent); }
-        .dark .highlight-card:hover { border-color: var(--brand-accent); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); }
+        
+        .dark .highlight-card { 
+            border-top-color: var(--brand-accent); 
+            background-color: var(--dark-container-bg); /* UPDATED: Darker background for cards */
+        }
+        .dark .highlight-card:hover { 
+            border-color: var(--brand-accent); 
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); 
+            background-color: var(--dark-card-bg); /* Lighter on hover */
+        }
+        
         .dark .premium-card { opacity: 0.6; background-color: var(--dark-card-bg); }
         .dark .premium-header { background: linear-gradient(to left, var(--brand-accent), #fde047); }
-        .dark .premium-header h4, .dark .premium-header .chevron, .dark .premium-header h4 i { 
-            color: var(--brand-primary) !important; /* FIXED: Force dark text */
+        /* FIXED: Force dark text on premium header regardless of theme */
+        .premium-header h4, .premium-header .chevron, .premium-header h4 i { 
+            color: var(--brand-primary) !important; 
         }
         .dark .premium-card::after { color: #fde047; text-shadow: 0 0 5px rgba(253, 224, 71, 0.7); }
         .dark .share-input { background-color: var(--dark-bg-start); border-color: var(--dark-border); color: var(--dark-text-secondary); }
         .dark .distinct-details-container { border-color: var(--brand-accent); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
         .dark .distinct-details-container > summary { background-color: #112d3c; }
         .dark .distinct-details-container > summary:hover { background-color: var(--dark-card-bg); }
-        .dark .distinct-details-container > summary h4, .dark .distinct-details-container > summary .chevron, .dark .distinct-details-container > summary h4 i { color: var(--brand-accent) !important; }
+        .dark .distinct-details-container > summary:not(.premium-header) h4, 
+        .dark .distinct-details-container > summary:not(.premium-header) .chevron, 
+        .dark .distinct-details-container > summary:not(.premium-header) h4 i { 
+            color: var(--brand-accent) !important; 
+        }
         .dark details[open] > .ai-category-header { border-bottom-color: var(--dark-border); }
         .dark .tab-main-title {
             background-color: var(--dark-card-bg);
@@ -149,7 +168,6 @@
         .dark .tab-main-title i {
             color: var(--brand-accent) !important;
         }
-
 
         /* NEW: تحسين وضوح اللوجو في الوضع الداكن */
         .dark header img {
@@ -383,6 +401,37 @@
             color: var(--brand-primary);
         }
 
+        /* FIXED: Custom message box styles */
+        .custom-message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 101;
+            padding: 1rem;
+        }
+        .custom-message-box-content {
+            background-color: #FFFFFF; /* Always light */
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            text-align: center;
+            width: 100%;
+            animation: fadeIn 0.3s ease-out;
+            border-top: 4px solid var(--brand-accent);
+        }
+        .custom-message-box-content p {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937; /* Always dark */
+            margin-bottom: 1rem;
+        }
 
     </style>
 </head>
@@ -493,7 +542,14 @@
                         <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/npTasyNEoS4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
-                <div class="notice-card content-card p-5 mt-6"><div class="flex items-start"><i data-lucide="shield-check" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div><h4 class="notice-title font-bold text-base mb-1">مراعاة حقوق الملكية</h4><p class="text-sm text-gray-600 leading-relaxed">مراعاةً لحقوق الملكية الفكرية، جميع المصادر المستخدمة في هذا التطبيق هي مصادر قيمة متاحة للعامة. لم يتم إضافة أي محتوى من كورسات مدفوعة لعدم امتلاك إذن من أصحابها.</p></div></div></div>
+                <div class="notice-card content-card p-5 mt-6"><div class="flex items-start"><i data-lucide="shield-check" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div>
+                    <h4 class="notice-title font-bold text-base mb-1">مراعاة حقوق الملكية</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">جميع المراجع المستخدمة في هذا التطبيق هي مصادر قيمة متاحة للعامة. لم يتم إضافة أي محتوى من كورسات مدفوعة لعدم امتلاك إذن من أصحابها.</p>
+                </div></div></div>
+                <div class="notice-card content-card p-5 mt-4"><div class="flex items-start"><i data-lucide="gift" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div>
+                    <h4 class="notice-title font-bold text-base mb-1">شاركنا المصادر</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">هل لديك مصادر قيمة متاحة للعامة أو تملك إذن أصحابها؟ نرحب جداً بمساهمتك لإضافتها للتطبيق وإفادة الجميع.</p>
+                </div></div></div>
             `,
             notebooks: `
                 <h2 class="tab-main-title text-2xl font-extrabold flex items-center"><i data-lucide="book-open-check" class="inline-block w-6 h-6 ml-3"></i>الدفاتر التفاعلية (NotebookLM)</h2>
@@ -508,7 +564,8 @@
                     <div class="content-card highlight-card p-4"><h3 class="text-lg font-bold text-gray-700 mb-2 flex items-center brand-color-primary"><i data-lucide="drill" class="w-5 h-5 ml-2" style="color: #6366f1;"></i>Dental Implant</h3><p class="text-sm text-gray-500 mb-3">زراعة الأسنان.</p><a href="https://notebooklm.google.com/notebook/13d58834-366c-4f84-b364-e55c844da493?authuser=1" target="_blank" class="ai-button block w-full text-center text-white font-bold py-2 rounded-lg text-base"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للدفتر</a></div>
                     <div class="content-card highlight-card p-4"><h3 class="text-lg font-bold text-gray-700 mb-2 flex items-center brand-color-primary"><i data-lucide="camera" class="w-5 h-5 ml-2" style="color: #f59e0b;"></i>Dental Photography</h3><p class="text-sm text-gray-500 mb-3">التصوير الفوتوغرافي لطب الأسنان.</p><a href="https://notebooklm.google.com/notebook/eabb2d5a-b945-4d83-8aba-422df20c6f44?authuser=3" target="_blank" class="ai-button block w-full text-center text-white font-bold py-2 rounded-lg text-base"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للدفتر</a></div>
                 </div>
-                <div class="notice-card content-card p-5 mt-6"><div class="flex items-start"><i data-lucide="info" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div><h4 class="notice-title font-bold text-base mb-1">ملاحظة هامة (RTL)</h4><p class="text-sm text-gray-600 leading-relaxed">لتحسين تنسيق إجابات الشات داخل NotebookLM التي قد لا تدعم العربية بشكل مثالي، انسخ الإجابة واطلب تنسيقها من أي نموذج لغوي آخر دون تغيير المحتوى.</p></div></div></div>
+                <div class="notice-card content-card p-5 mt-6"><div class="flex items-start"><i data-lucide="sparkle" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div><h4 class="notice-title font-bold text-base mb-1">خبر حلو! 💚</h4><p class="text-sm text-gray-600 leading-relaxed">يمكنك بسهولة انشاء نوت بوك احترافية خاص بك لأي كورس، كتاب، أو بحث تقوم بمذاكرته. يمكن الاستعانة بمحاضراتنا المجانية أو الكورس الخاص بنا، في الحقيقة هذا جزء بسيط جداً مما يمكنك تعلمه معنا.</p></div></div></div>
+                <div class="notice-card content-card p-5 mt-4"><div class="flex items-start"><i data-lucide="info" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div><h4 class="notice-title font-bold text-base mb-1">ملاحظة هامة (RTL)</h4><p class="text-sm text-gray-600 leading-relaxed">لتحسين تنسيق إجابات الشات داخل NotebookLM التي قد لا تدعم العربية بشكل مثالي، انسخ الإجابة واطلب تنسيقها من أي نموذج لغوي آخر دون تغيير المحتوى.</p></div></div></div>
                 `,
             'ai-assistants': `
                 <h2 class="tab-main-title text-2xl font-extrabold flex items-center">
@@ -621,7 +678,9 @@
 
                 <div class="bg-red-600 p-5 content-card mb-6 text-white text-center shadow-lg border-b-4 border-red-700"><h3 class="text-xl font-bold mb-2 flex items-center justify-center"><i data-lucide="youtube" class="w-6 h-6 ml-2 text-white"></i>قناة اليوتيوب الرسمية</h3><p class="text-base opacity-90 mb-4">شروحاتنا عن الذكاء الاصطناعي وأفضل الملخصات المرئية لكل تخصص.</p><a href="https://www.youtube.com/@SmarterwithAI-mood/playlists" target="_blank" class="inline-flex items-center justify-center bg-white text-red-600 hover:bg-gray-200 font-bold py-2 px-6 rounded-full transition text-base shadow-md"><i data-lucide="monitor-play" class="w-5 h-5 ml-2"></i>مشاهدة القناة</a></div>
                 
-                <details class="distinct-details-container mb-6">
+                <div class="content-card p-5 mt-6 bg-[var(--brand-primary)] text-white text-center shadow-lg border-b-4 border-[var(--brand-accent)]"><h3 class="text-xl font-bold mb-2 flex items-center justify-center"><i data-lucide="award" class="w-6 h-6 ml-2 text-[var(--brand-accent)]"></i>كورسات Smarter With Ai</h3><p class="text-base opacity-90 mb-4">جاهز تنضم لأسرة Smarter With Ai؟ 🚀 التسجيل مفتوح للدفعات الجديدة.</p><a href="https://mahmoudtaru.github.io/Smarter-With-Ai-course/" target="_blank" class="inline-flex items-center justify-center bg-[var(--brand-accent)] text-white hover:opacity-90 font-bold py-2 px-6 rounded-full transition text-base shadow-md"><i data-lucide="graduation-cap" class="w-5 h-5 ml-2"></i>ابدأ رحلتك الآن!</a></div>
+                
+                <details class="distinct-details-container mt-6 mb-6">
                     <summary class="ai-category-header">
                         <h3 class="text-xl font-bold flex items-center"><i data-lucide="sparkles" class="w-6 h-6 inline-block ml-3"></i>محاضرات المهارات الأساسية</h3>
                         <i data-lucide="chevron-left" class="chevron w-5 h-5"></i>
@@ -636,8 +695,6 @@
                         </div>
                     </div>
                 </details>
-
-                <div class="content-card p-5 mt-6 bg-[var(--brand-primary)] text-white text-center shadow-lg border-b-4 border-[var(--brand-accent)]"><h3 class="text-xl font-bold mb-2 flex items-center justify-center"><i data-lucide="award" class="w-6 h-6 ml-2 text-[var(--brand-accent)]"></i>كورسات Smarter With Ai</h3><p class="text-base opacity-90 mb-4">برامج تدريبية متعمقة لتتقن استخدام الذكاء الاصطناعي.</p><a href="https://mahmoudtaru.github.io/Smarter-With-Ai-course/" target="_blank" class="inline-flex items-center justify-center bg-[var(--brand-accent)] text-white hover:opacity-90 font-bold py-2 px-6 rounded-full transition text-base shadow-md"><i data-lucide="graduation-cap" class="w-5 h-5 ml-2"></i>اكتشف الكورسات</a></div>
                 `,
             about: `
                 <h2 class="tab-main-title text-2xl font-extrabold flex items-center"><i data-lucide="user-check" class="inline-block w-6 h-6 ml-3"></i>عن المشروع والمؤسس</h2>
@@ -687,7 +744,7 @@
                     <p class="text-sm text-gray-500 mb-4">"الدال على الخير كفاعله"</p>
                     <input type="text" id="appLink" value="https://mahmoudtaru.github.io/Smarter-Dentists-With-Ai/" readonly class="w-full text-center p-2 rounded-md border border-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 text-sm share-input">
                     <div class="flex flex-col sm:flex-row gap-3 mt-4">
-                        <button onclick="copyAppLink()" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="copy" class="w-4 h-4 ml-2"></i>نسخ الرابط</button>
+                        <button id="copyButton" onclick="copyAppLink()" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="copy" class="w-4 h-4 ml-2"></i>نسخ الرابط</button>
                         <button onclick="shareAppLink()" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="send" class="w-4 h-4 ml-2"></i>مشاركة التطبيق</button>
                     </div>
                 </div>
@@ -908,14 +965,26 @@
 
         function copyAppLink() {
             const linkInput = document.getElementById('appLink');
+            const buttonElement = document.getElementById('copyButton'); // Get button by ID
+            if (!buttonElement || buttonElement.disabled) return; // Safety check
+            const originalText = buttonElement.innerHTML;
+
             linkInput.select();
-            linkInput.setSelectionRange(0, 99999); // For mobile devices
+            linkInput.setSelectionRange(0, 99999); 
             try {
-                // Fallback for older browsers
                 document.execCommand('copy');
-                showCustomMessage("تم نسخ الرابط بنجاح!");
+                
+                buttonElement.innerHTML = '<i data-lucide="check" class="w-4 h-4 ml-2"></i> تم النسخ!';
+                lucide.createIcons();
+                buttonElement.disabled = true;
+                
+                setTimeout(() => { 
+                    buttonElement.innerHTML = originalText; 
+                    buttonElement.disabled = false;
+                    lucide.createIcons();
+                }, 2000);
             } catch (err) {
-                showCustomMessage("فشل نسخ الرابط. يرجى النسخ يدوياً.");
+                showCustomMessage("فشل نسخ الرابط. يرجى النسخ يدوياً."); // Fallback popup
             }
         }
 
@@ -927,18 +996,25 @@
                     url: APP_LINK_TO_SHARE,
                 }).catch((error) => console.log('Error sharing', error));
             } else {
-                copyAppLink();
-                showCustomMessage("المشاركة غير مدعومة على هذا المتصفح. تم نسخ الرابط بدلاً من ذلك.");
+                // Fallback for desktop/unsupported browsers
+                copyAppLink(); 
             }
         }
 
         function showCustomMessage(message) {
+            // Remove any existing message box first
+            const existingBox = document.getElementById('custom-message-box');
+            if(existingBox) {
+                existingBox.remove();
+            }
+
             const messageBox = document.createElement('div');
-            messageBox.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-[101] p-4';
+            messageBox.id = 'custom-message-box';
+            messageBox.className = 'custom-message-box-overlay';
             messageBox.innerHTML = `
-                <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm text-center w-full dark:bg-gray-800 animate-fadeIn">
-                    <p class="text-lg font-semibold text-gray-800 mb-4 dark:text-gray-100">${message}</p>
-                    <button onclick="this.closest('.fixed').remove()" class="ai-button w-full">إغلاق</button>
+                <div class="custom-message-box-content">
+                    <p>${message}</p>
+                    <button onclick="this.closest('.custom-message-box-overlay').remove()" class="ai-button w-full">إغلاق</button>
                 </div>`;
             document.body.appendChild(messageBox);
         }
