@@ -169,6 +169,7 @@
             color: var(--brand-accent) !important;
         }
 
+
         /* NEW: تحسين وضوح اللوجو في الوضع الداكن */
         .dark header img {
             filter: brightness(1.1);
@@ -414,6 +415,13 @@
             background-color: rgba(0, 0, 0, 0.6);
             z-index: 101;
             padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .custom-message-box-overlay.visible {
+            opacity: 1;
+            visibility: visible;
         }
         .custom-message-box-content {
             background-color: #FFFFFF; /* Always light */
@@ -423,8 +431,12 @@
             max-width: 400px;
             text-align: center;
             width: 100%;
-            animation: fadeIn 0.3s ease-out;
             border-top: 4px solid var(--brand-accent);
+            transform: scale(0.9);
+            transition: transform 0.3s ease-out;
+        }
+        .custom-message-box-overlay.visible .custom-message-box-content {
+            transform: scale(1);
         }
         .custom-message-box-content p {
             font-size: 1.125rem;
@@ -611,7 +623,7 @@
                             <i data-lucide="chevron-left" class="chevron w-5 h-5"></i>
                         </summary>
                         <div class="collapsible-content">
-                            <p class="text-base text-gray-700 mb-4 text-center">هذه المساعدات هي بونص خاص بطلبة كورس Smarter With Ai. القائمة تتحدث باستمرار وتتم زيادة كفائتها.</p>
+                            <p class="text-base text-gray-700 dark:text-gray-300 mb-4 text-center">هذه المساعدات هي بونص خاص بطلبة كورس Smarter With Ai. القائمة تتحدث باستمرار وتتم زيادة كفائتها.</p>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
                                     <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="bot" class="w-5 h-5 ml-2 brand-color-accent"></i>Prompt Mood</h5>
@@ -679,7 +691,7 @@
                 <div class="bg-red-600 p-5 content-card mb-6 text-white text-center shadow-lg border-b-4 border-red-700"><h3 class="text-xl font-bold mb-2 flex items-center justify-center"><i data-lucide="youtube" class="w-6 h-6 ml-2 text-white"></i>قناة اليوتيوب الرسمية</h3><p class="text-base opacity-90 mb-4">شروحاتنا عن الذكاء الاصطناعي وأفضل الملخصات المرئية لكل تخصص.</p><a href="https://www.youtube.com/@SmarterwithAI-mood/playlists" target="_blank" class="inline-flex items-center justify-center bg-white text-red-600 hover:bg-gray-200 font-bold py-2 px-6 rounded-full transition text-base shadow-md"><i data-lucide="monitor-play" class="w-5 h-5 ml-2"></i>مشاهدة القناة</a></div>
                 
                 <div class="content-card p-5 mt-6 bg-[var(--brand-primary)] text-white text-center shadow-lg border-b-4 border-[var(--brand-accent)]"><h3 class="text-xl font-bold mb-2 flex items-center justify-center"><i data-lucide="award" class="w-6 h-6 ml-2 text-[var(--brand-accent)]"></i>كورسات Smarter With Ai</h3><p class="text-base opacity-90 mb-4">جاهز تنضم لأسرة Smarter With Ai؟ 🚀 التسجيل مفتوح للدفعات الجديدة.</p><a href="https://mahmoudtaru.github.io/Smarter-With-Ai-course/" target="_blank" class="inline-flex items-center justify-center bg-[var(--brand-accent)] text-white hover:opacity-90 font-bold py-2 px-6 rounded-full transition text-base shadow-md"><i data-lucide="graduation-cap" class="w-5 h-5 ml-2"></i>ابدأ رحلتك الآن!</a></div>
-                
+
                 <details class="distinct-details-container mt-6 mb-6">
                     <summary class="ai-category-header">
                         <h3 class="text-xl font-bold flex items-center"><i data-lucide="sparkles" class="w-6 h-6 inline-block ml-3"></i>محاضرات المهارات الأساسية</h3>
@@ -691,7 +703,6 @@
                             <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="graduation-cap" class="w-5 h-5 ml-3 brand-color-accent"></i>ازاي تتعلم وتذاكر بالـ AI</h3><div class="flex flex-col sm:flex-row justify-start items-center gap-3 text-sm"><a href="https://t.me/Smarter_With_Ai/103" target="_blank" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="play-circle" class="w-4 h-4 ml-2"></i>شاهد المحاضرة</a><a href="https://drive.google.com/file/d/1X8k3Q4kzHiqvMy64y3mKLuZ1zSa9XWHO/view?usp=sharing" target="_blank" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="file-text" class="w-4 h-4 ml-2"></i>دليل المحاضرة</a></div></div>
                             <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="notebook-text" class="w-5 h-5 ml-3 brand-color-accent"></i>كل ما تحتاج معرفته عن NotebookLM</h3><div class="flex flex-col sm:flex-row justify-start items-center gap-3 text-sm"><a href="https://t.me/Mahmoud_learning_space/215" target="_blank" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="play-circle" class="w-4 h-4 ml-2"></i>شاهد المحاضرة</a><a href="https://drive.google.com/file/d/1VhT-8jYdNfYYGcGCp4WVaVsIPH7cnrSA/view?usp=sharing" target="_blank" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="file-text" class="w-4 h-4 ml-2"></i>دليل المحاضرة</a></div></div>
                             <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="bot" class="w-5 h-5 ml-3 brand-color-accent"></i>دليلك لبناء مساعد شخصي</h3><div class="flex flex-col sm:flex-row justify-start items-center gap-3 text-sm"><a href="https://t.me/Smarter_With_Ai/117" target="_blank" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="play-circle" class="w-4 h-4 ml-2"></i>شاهد المحاضرة</a><a href="https://drive.google.com/file/d/1-XK3ID_S5NGh--tyanF623yxcU6rvBQI/view?usp=sharing" target="_blank" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="file-text" class="w-4 h-4 ml-2"></i>دليل المحاضرة</a></div></div>
-                            <div class="p-5 rounded-lg text-center text-base mt-4 notebook-helper-card"><p class="font-bold text-gray-700 mb-3">للاستعانة في مذاكرة المحاضرات:</p><a href="https://notebooklm.google.com/notebook/6d66f076-72e9-4461-8dea-a8a4a8355768" target="_blank" class="ai-button inline-flex items-center justify-center w-full sm:w-auto px-6"><i data-lucide="book-open" class="w-5 h-5 ml-2"></i>النوت بوك التفاعلي</a></div>
                         </div>
                     </div>
                 </details>
@@ -702,7 +713,7 @@
                     <img src="https://i.postimg.cc/j2T1s5M6/me.jpg" alt="صورة د. محمود حرب" class="w-28 h-28 rounded-full mb-4 shadow-lg border-4 border-[var(--brand-accent)]">
                     <h3 class="text-2xl font-extrabold text-gray-800">د. محمود حرب</h3>
                     <p class="text-lg brand-color-primary dark:text-[var(--brand-accent)] font-bold mb-4">طبيب أسنان ومدرّب ذكاء اصطناعي</p>
-                    <p class="text-gray-600 leading-relaxed text-base max-w-md mx-auto mb-6">الهدف هو تبسيط الذكاء الاصطناعي وتوصيله كأدوات وحلول عملية قابلة للتطبيق في الممارسة المهنية والحياة اليومية.</p>
+                    <p class="text-gray-600 leading-relaxed text-base max-w-md mx-auto mb-6">"صانع محتوى محب للتعلم. رسالتي هي مساعدتك من خلال تبسيط أفضل أدوات الذكاء الاصطناعي عشان نستخدمها بكفاءة وفعالية في شغلك، دراستك، وحياتك اليومية. من خلال محاضرات مجانية وكورس عملي متكامل ياخد بإيدك خطوة بخطوة عشان تكون Smarter With Ai."</p>
                     <div class="w-full border-t border-[var(--light-border)] dark:border-[var(--dark-border)] pt-6 mt-6">
                         <a href="https://linktr.ee/Mahmoud_harb18" target="_blank" class="ai-button inline-flex items-center justify-center w-full md:w-auto px-6 py-2.5 text-base">
                             <i data-lucide="briefcase" class="w-5 h-5 ml-2"></i>
@@ -710,6 +721,26 @@
                         </a>
                     </div>
                 </div>
+
+                <details class="distinct-details-container mb-6">
+                    <summary class="ai-category-header">
+                        <h3 class="text-xl font-bold flex items-center"><i data-lucide="book-heart" class="w-6 h-6 inline-block ml-3"></i>قصتنا - ليه Smarter With Ai؟</h3>
+                        <i data-lucide="chevron-left" class="chevron w-5 h-5"></i>
+                    </summary>
+                    <div class="collapsible-content space-y-4">
+                        <p class="text-gray-600 leading-relaxed text-base">
+                            "من خبرتي كطبيب أسنان ومدرب ذكاء اصطناعي، كنت دايمًا بشوف ناس كتير تايهة في عالم ال Ai. نفسهم يستفيدوا منه صح، بس مش عارفين يبدأوا منين. من هنا بدأت رحلة Smarter With Ai.
+                            <br><br>
+                            أيًا كان مجالك، أكيد بتدور على حلول، سواء مساعدين يوفروا وقتك ومجهودك، أو حتى طريقة أذكى تسوق بيها لنفسك 💡. 
+                            <br><br>
+                            هدفي أساعدك خطوة بخطوة، من خلال محاضرات مجانية وكورس عملي متكامل، يعلمك إزاي تسخر أحدث أدوات الذكاء الاصطناعي في شغلك، دراستك، وحياتك اليومية عشان تكون Smarter With Ai. الموضوع أبسط مما تتخيل، والتطبيق ده مجرد بداية للي ممكن تتعلمه معانا."
+                        </p>
+                        <div class="relative w-full overflow-hidden rounded-lg mt-4" style="padding-top: 56.25%;">
+                            <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/npTasyNEoS4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </details>
+
                 <div class="notice-card content-card p-5 mb-6"><h3 class="text-lg font-bold notice-title mb-3 flex items-center"><i data-lucide="star" class="w-6 h-6 ml-3 notice-icon"></i>تقييم التطبيق واقتراحاتكم</h3><p class="text-gray-700 leading-relaxed text-base mb-4 dark:text-gray-300">مساهمتكم في التقييم ضرورية لتحسين المحتوى والأدوات. شاركونا المميزات، العيوب، والاقتراحات.</p><a href="https://forms.gle/agZbg5PHz19kiBuQ9" target="_blank" class="ai-button inline-flex items-center justify-center w-full text-base"><i data-lucide="clipboard-pen" class="w-5 h-5 ml-2"></i>انتقل لنموذج التقييم</a></div>
                 <div class="content-card highlight-card p-5 mb-6"><h3 class="text-xl font-bold text-gray-800 mb-4">تابعنا وشاركنا</h3><div class="flex flex-col gap-4">
                     <a href="https://t.me/Smarter_With_Ai" target="_blank" class="social-link text-base"><i data-lucide="send" class="w-5 h-5 ml-3"></i><span>قناة التيليجرام</span></a>
@@ -759,16 +790,42 @@
         // دوال التطبيق الرئيسية (Main App Logic)
         // ====================================================================
 
-        document.addEventListener('DOMContentLoaded', () => {
+        // FIXED: Changed from DOMContentLoaded to window.onload
+        // This ensures external scripts like Lucide icons are fully loaded before initializeApp() is called.
+        window.onload = () => {
             // تهيئة التطبيق بعد تحميل الصفحة
             initializeApp();
-        });
+        };
+
+        /**
+         * FIXED: Robust icon creation function with retry mechanism.
+         * This prevents errors if lucide script hasn't loaded yet.
+         */
+        function safeCreateIcons(attempt = 0) {
+            try {
+                if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+                    lucide.createIcons();
+                } else if (attempt < 50) { // Try for 2.5 seconds
+                    setTimeout(() => safeCreateIcons(attempt + 1), 50);
+                } else {
+                    console.error("Lucide icons failed to load after 2.5 seconds.");
+                }
+            } catch (e) {
+                console.warn("Lucide.createIcons() failed, retrying...", e);
+                if (attempt < 50) {
+                    setTimeout(() => safeCreateIcons(attempt + 1), 50);
+                } else {
+                    console.error("Lucide icons failed permanently.", e);
+                }
+            }
+        }
         
         function initializeApp() {
             // 1. إعداد الوضع الداكن/الفاتح
             const savedTheme = localStorage.getItem('theme');
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            applyTheme(savedTheme === 'dark' || (!savedTheme && prefersDark));
+            applyTheme(savedTheme === 'dark' || (!savedTheme && prefersDark), false); // FIXED: Pass false to skip createIcons on init
+            
             document.getElementById('modeToggle').addEventListener('click', () => applyTheme(!document.documentElement.classList.contains('dark')));
             
             // 2. إعداد أزرار التنقل
@@ -788,14 +845,16 @@
             startSplashScreenAnimation();
             
             // 5. استدعاء Lucide لتفعيل الأيقونات
-            lucide.createIcons();
+            safeCreateIcons(); // Use safe function
         }
 
-        function applyTheme(isDark) {
+        function applyTheme(isDark, createIcons = true) { // FIXED: Added createIcons flag
             document.documentElement.classList.toggle('dark', isDark);
             document.getElementById('modeIcon').setAttribute('data-lucide', isDark ? 'sun' : 'moon');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            lucide.createIcons();
+            if (createIcons) {
+                safeCreateIcons(); // Use safe function
+            }
         }
 
         function switchTab(tabName) {
@@ -813,7 +872,7 @@
             document.querySelector('.nav-item.active')?.classList.remove('active');
             document.querySelector(`.nav-item[data-tab="${tabName}"]`)?.classList.add('active');
             
-            lucide.createIcons();
+            safeCreateIcons(); // Use safe function
             // إعادة ربط الأحداث للأزرار الديناميكية داخل التبويب الجديد
             setupDynamicEventListeners(tabName);
         }
@@ -882,7 +941,7 @@
         async function callGeminiLlm(prompt, outputElementId) {
             const outputElement = document.getElementById(outputElementId);
             outputElement.innerHTML = `<div class="flex justify-center items-center p-4"><i data-lucide="loader-circle" class="w-6 h-6 inline-block animate-spin brand-color-primary"></i><p class="mr-3 text-gray-600 dark:text-gray-300">جاري التحليل...</p></div>`;
-            lucide.createIcons();
+            safeCreateIcons(); // Use safe function
 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             const systemPrompt = "Act as a specialized dental practitioner and AI assistant. Your response MUST be concise, accurate, and structured. Use lists and clear headings in Arabic. Do NOT give medical advice. Only provide educational and differential diagnostic assistance.";
@@ -911,7 +970,7 @@
             }
             ttsButton.disabled = true;
             ttsButton.innerHTML = `<i data-lucide="volume-2" class="w-4 h-4 inline-block animate-pulse ml-1"></i> جاري...`;
-            lucide.createIcons();
+            safeCreateIcons(); // Use safe function
 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
             const payload = {
@@ -975,13 +1034,13 @@
                 document.execCommand('copy');
                 
                 buttonElement.innerHTML = '<i data-lucide="check" class="w-4 h-4 ml-2"></i> تم النسخ!';
-                lucide.createIcons();
+                safeCreateIcons(); // Use safe function
                 buttonElement.disabled = true;
                 
                 setTimeout(() => { 
                     buttonElement.innerHTML = originalText; 
                     buttonElement.disabled = false;
-                    lucide.createIcons();
+                    safeCreateIcons(); // Use safe function
                 }, 2000);
             } catch (err) {
                 showCustomMessage("فشل نسخ الرابط. يرجى النسخ يدوياً."); // Fallback popup
@@ -1016,8 +1075,13 @@
                     <p>${message}</p>
                     <button onclick="this.closest('.custom-message-box-overlay').remove()" class="ai-button w-full">إغلاق</button>
                 </div>`;
+            
+            // Add to body and trigger animation
             document.body.appendChild(messageBox);
+            setTimeout(() => messageBox.classList.add('visible'), 10);
         }
+
+
 
         function base64ToArrayBuffer(base64) {
             const binaryString = atob(base64);
