@@ -123,6 +123,9 @@
         .dark .secondary-lecture-btn:hover { background-color: rgba(162, 195, 85, 0.1); }
         .dark .notebook-helper-card { background: linear-gradient(135deg, rgba(163, 193, 74, 0.1), rgba(11, 61, 76, 0.2)); }
         .dark .notice-card { background-color: rgba(163, 193, 74, 0.1); border-top-color: var(--brand-accent); }
+        .dark .notice-card-secondary { background-color: rgba(11, 61, 76, 0.2); border-top-color: var(--brand-primary); }
+        .dark .notice-card-secondary .notice-title { color: #c0bfe8 !important; }
+        .dark .notice-card-secondary .notice-icon { color: #c0bfe8 !important; }
         .dark .notice-title { color: var(--brand-accent) !important; }
         .dark .hero-section { background: linear-gradient(135deg, rgba(11, 61, 76, 0.5), rgba(163, 193, 74, 0.3)); }
         
@@ -163,7 +166,7 @@
         .dark .tab-main-title {
             background-color: var(--dark-card-bg);
             color: var(--brand-accent) !important;
-            border-color: var(--dark-border);
+            border-top-color: var(--brand-accent);
         }
         .dark .tab-main-title i {
             color: var(--brand-accent) !important;
@@ -257,8 +260,13 @@
             border-radius: 0.75rem; 
         } 
         .distinct-details-container {
-             border: 2px solid rgba(11, 61, 76, 0.2);
+             border: 1px solid rgba(11, 61, 76, 0.2);
              box-shadow: 0 4px 12px rgba(11, 61, 76, 0.08);
+             border-top: 4px solid var(--brand-accent);
+        }
+        .dark .distinct-details-container {
+             border: 1px solid var(--dark-border);
+             border-top: 4px solid var(--brand-accent);
         }
         details > summary {
             cursor: pointer;
@@ -298,7 +306,6 @@
         }
         .dark .collapsible-content { border-top: 1px solid var(--dark-border); }
         .dark details { border-color: var(--dark-border); }
-        .dark .distinct-details-container { border-color: var(--brand-accent); }
 
         
         /* NEW STYLES for Learn Section */
@@ -347,6 +354,18 @@
         .notice-icon {
             color: var(--brand-accent);
         }
+
+        /* NEW: Secondary Notice Card */
+        .notice-card-secondary {
+            background-color: #f0f7f9; /* Light blue */
+            border-top: 4px solid var(--brand-primary);
+        }
+        .notice-card-secondary .notice-title {
+            color: var(--brand-primary);
+        }
+        .notice-card-secondary .notice-icon {
+            color: var(--brand-primary);
+        }
         
         .highlight-card {
             border: 1px solid var(--light-border);
@@ -391,11 +410,12 @@
         .tab-main-title {
             background-color: rgba(11, 61, 76, 0.05);
             color: var(--brand-primary);
-            padding: 0.75rem 1rem;
+            padding: 1rem;
             border-radius: 0.75rem;
             margin-bottom: 1.5rem;
-            border: 1px solid var(--light-border);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            border: 1px solid rgba(11, 61, 76, 0.2);
+            border-top: 4px solid var(--brand-accent);
+            box-shadow: 0 4px 12px rgba(11, 61, 76, 0.08);
             font-weight: 800;
         }
         .tab-main-title i {
@@ -444,6 +464,23 @@
             color: #1f2937; /* Always dark */
             margin-bottom: 1rem;
         }
+        
+        /* NEW: Header Slogan */
+        .header-slogan {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(11, 61, 76, 0.1), rgba(163, 193, 74, 0.1));
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; /* pill shape */
+            font-size: 0.875rem; /* 14px */
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin-top: 0.5rem;
+        }
+        .dark .header-slogan {
+            background: linear-gradient(135deg, rgba(11, 61, 76, 0.5), rgba(163, 193, 74, 0.3));
+            color: var(--dark-text-primary);
+        }
+
 
     </style>
 </head>
@@ -470,7 +507,7 @@
         <div class="mobile-container p-4 md:p-8">
             <header class="text-center mb-6 pt-4 relative">
                 <img src="https://i.postimg.cc/T3BTkf37/Chat-GPT-Image-Oct-18-2025-04-50-39-PM.png" alt="Smarter Dentists With Ai Logo" class="rounded-full object-cover mx-auto h-20 w-20 mb-3 shadow-md">
-                <p class="text-base text-gray-600 font-semibold">
+                <p class="header-slogan">
                     مساحتك لاستخدام الذكاء الاصطناعي في طب الأسنان بفعالية.
                 </p>
             </header>
@@ -551,16 +588,12 @@
                 <div class="content-card p-5 mb-6">
                     <h3 class="tab-main-title text-xl font-bold flex items-center"><i data-lucide="video" class="inline-block w-6 h-6 ml-3"></i>جولة سريعة في التطبيق</h3>
                     <div class="relative w-full overflow-hidden rounded-lg" style="padding-top: 56.25%;">
-                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/npTasyNEoS4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/npTasyNEoS4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
-                <div class="notice-card content-card p-5 mt-6"><div class="flex items-start"><i data-lucide="shield-check" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div>
-                    <h4 class="notice-title font-bold text-base mb-1">مراعاة حقوق الملكية</h4>
-                    <p class="text-sm text-gray-600 leading-relaxed">جميع المراجع المستخدمة في هذا التطبيق هي مصادر قيمة متاحة للعامة. لم يتم إضافة أي محتوى من كورسات مدفوعة لعدم امتلاك إذن من أصحابها.</p>
-                </div></div></div>
-                <div class="notice-card content-card p-5 mt-4"><div class="flex items-start"><i data-lucide="gift" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div>
-                    <h4 class="notice-title font-bold text-base mb-1">شاركنا المصادر</h4>
-                    <p class="text-sm text-gray-600 leading-relaxed">هل لديك مصادر قيمة متاحة للعامة أو تملك إذن أصحابها؟ نرحب جداً بمساهمتك لإضافتها للتطبيق وإفادة الجميع.</p>
+                <div class="notice-card-secondary content-card p-5 mt-6"><div class="flex items-start"><i data-lucide="cpu" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div>
+                    <h4 class="notice-title font-bold text-base mb-1">ملاحظة هامة</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">هذا التطبيق بالكامل بكل محتوياته كلها معمول بمساعدة ال Ai،، انا مش مبرمج ،، انا مجرد بعرف استخدم الذكاء الاصطناعي صح وده شئ انت كمان تقدر تعمله.</p>
                 </div></div></div>
             `,
             notebooks: `
@@ -577,7 +610,26 @@
                     <div class="content-card highlight-card p-4"><h3 class="text-lg font-bold text-gray-700 mb-2 flex items-center brand-color-primary"><i data-lucide="camera" class="w-5 h-5 ml-2" style="color: #f59e0b;"></i>Dental Photography</h3><p class="text-sm text-gray-500 mb-3">التصوير الفوتوغرافي لطب الأسنان.</p><a href="https://notebooklm.google.com/notebook/eabb2d5a-b945-4d83-8aba-422df20c6f44?authuser=3" target="_blank" class="ai-button block w-full text-center text-white font-bold py-2 rounded-lg text-base"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للدفتر</a></div>
                 </div>
                 <div class="notice-card content-card p-5 mt-6"><div class="flex items-start"><i data-lucide="sparkle" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div><h4 class="notice-title font-bold text-base mb-1">خبر حلو! 💚</h4><p class="text-sm text-gray-600 leading-relaxed">يمكنك بسهولة انشاء نوت بوك احترافية خاص بك لأي كورس، كتاب، أو بحث تقوم بمذاكرته. يمكن الاستعانة بمحاضراتنا المجانية أو الكورس الخاص بنا، في الحقيقة هذا جزء بسيط جداً مما يمكنك تعلمه معنا.</p></div></div></div>
-                <div class="notice-card content-card p-5 mt-4"><div class="flex items-start"><i data-lucide="info" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div><h4 class="notice-title font-bold text-base mb-1">ملاحظة هامة (RTL)</h4><p class="text-sm text-gray-600 leading-relaxed">لتحسين تنسيق إجابات الشات داخل NotebookLM التي قد لا تدعم العربية بشكل مثالي، انسخ الإجابة واطلب تنسيقها من أي نموذج لغوي آخر دون تغيير المحتوى.</p></div></div></div>
+                
+                <details class="distinct-details-container mt-4">
+                    <summary class="ai-category-header">
+                        <h4 class="text-lg font-bold flex items-center">
+                            <i data-lucide="alert-triangle" class="w-5 h-5 inline-block ml-3"></i>ملاحظات هامة
+                        </h4>
+                        <i data-lucide="chevron-left" class="chevron w-5 h-5"></i>
+                    </summary>
+                    <div class="collapsible-content space-y-4">
+                        <div class="notice-card-secondary content-card p-5"><div class="flex items-start"><i data-lucide="info" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div><h4 class="notice-title font-bold text-base mb-1">ملاحظة هامة (RTL)</h4><p class="text-sm text-gray-600 leading-relaxed">لتحسين تنسيق إجابات الشات داخل NotebookLM التي قد لا تدعم العربية بشكل مثالي، انسخ الإجابة واطلب تنسيقها من أي نموذج لغوي آخر دون تغيير المحتوى.</p></div></div></div>
+                        <div class="notice-card content-card p-5"><div class="flex items-start"><i data-lucide="shield-check" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div>
+                            <h4 class="notice-title font-bold text-base mb-1">مراعاة حقوق الملكية</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">جميع المراجع المستخدمة في هذا التطبيق هي مصادر قيمة متاحة للعامة. لم يتم إضافة أي محتوى من كورسات مدفوعة لعدم امتلاك إذن من أصحابها.</p>
+                        </div></div></div>
+                        <div class="notice-card-secondary content-card p-5"><div class="flex items-start"><i data-lucide="gift" class="notice-icon w-6 h-6 ml-3 flex-shrink-0"></i><div>
+                            <h4 class="notice-title font-bold text-base mb-1">شاركنا المصادر</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">هل لديك مصادر قيمة متاحة للعامة أو تملك إذن أصحابها؟ نرحب جداً بمساهمتك لإضافتها للتطبيق وإفادة الجميع.</p>
+                        </div></div></div>
+                    </div>
+                </details>
                 `,
             'ai-assistants': `
                 <h2 class="tab-main-title text-2xl font-extrabold flex items-center">
@@ -602,17 +654,34 @@
                             </div>
                         </div>
                     </details>
-                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="library-big" class="w-5 h-5 inline-block ml-3"></i>البحث والتلخيص العلمي</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="search-check" class="w-5 h-5 ml-2 brand-color-accent"></i>Scholar GPT</h5><p class="text-sm text-gray-500 mb-3">تعزيز البحث العلمي بالوصول إلى أكثر من 200 مليون مصدر.</p><a href="https://chatgpt.com/g/g-kZ0eYXlJe-scholar-gpt" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div><div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="bookmark-check" class="w-5 h-5 ml-2 brand-color-accent"></i>Consensus</h5><p class="text-sm text-gray-500 mb-3">أداة بحث تستخرج النتائج من الأوراق العلمية والبحوث المنشورة.</p><a href="https://chatgpt.com/g/g-bo0FiWLY7-consensus" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div><div class="highlight-card content-card p-4 md:col-span-2"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="file-text" class="w-5 h-5 ml-2 brand-color-accent"></i>دليل أوامر البحث العلمي</h5><p class="text-sm text-gray-500 mb-3">ملف يحتوي على أفضل الأوامر الاحترافية المخصصة للبحث العلمي.</p><a href="https://drive.google.com/file/d/122N6rG3T5DGWuOvAnHeHpbuBGggGQOFu/view?usp=sharing" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="download" class="inline-block w-4 h-4 ml-2"></i>تحميل الدليل</a></div></div></div></details>
-                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="type" class="w-5 h-5 inline-block ml-3"></i>الكتابة والتنسيق العام</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="library-big" class="w-5 h-5 inline-block ml-3"></i>البحث والتلخيص العلمي</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="graduation-cap" class="w-5 h-5 ml-2 brand-color-accent"></i>👌Academic Assistant Pro</h5><p class="text-sm text-gray-500 mb-3">Professional academic assistant with a professorial touch.</p><a href="https://chatgpt.com/g/g-UubB08D4y-academic-assistant-pro" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>ChatGPT</a></div>
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="search-check" class="w-5 h-5 ml-2 brand-color-accent"></i>Scholar GPT</h5><p class="text-sm text-gray-500 mb-3">تعزيز البحث العلمي بالوصول إلى أكثر من 200 مليون مصدر.</p><a href="https://chatgpt.com/g/g-kZ0eYXlJe-scholar-gpt" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div><div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="bookmark-check" class="w-5 h-5 ml-2 brand-color-accent"></i>Consensus</h5><p class="text-sm text-gray-500 mb-3">أداة بحث تستخرج النتائج من الأوراق العلمية والبحوث المنشورة.</p><a href="https://chatgpt.com/g/g-bo0FiWLY7-consensus" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div><div class="highlight-card content-card p-4 md:col-span-2"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="file-text" class="w-5 h-5 ml-2 brand-color-accent"></i>دليل أوامر البحث العلمي</h5><p class="text-sm text-gray-500 mb-3">ملف يحتوي على أفضل الأوامر الاحترافية المخصصة للبحث العلمي.</p><a href="https://drive.google.com/file/d/122N6rG3T5DGWuOvAnHeHpbuBGggGQOFu/view?usp=sharing" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="download" class="inline-block w-4 h-4 ml-2"></i>تحميل الدليل</a></div></div></div></details>
+                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="brain-circuit" class="w-5 h-5 inline-block ml-3"></i>الشرح وتبسيط المعلومات</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="sparkles" class="w-5 h-5 ml-2 brand-color-accent"></i>Smarter Mood</h5><p class="text-sm text-gray-500 mb-3">مدرب على أسلوبي في التلخيص لشرح أي موضوع ببساطة.</p><a href="https://chatgpt.com/g/g-68f0f763bd24819192d82c0187cad244-smarter-mood" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>ChatGPT</a></div>
-                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="sparkles" class="w-5 h-5 ml-2 brand-color-accent"></i>Formatter Mood</h5><p class="text-sm text-gray-500 mb-3">لإعادة صياغة وتهذيب أي نص دون تغيير المحتوى.</p><a href="https://gemini.google.com/gem/11YKs3EHRxG92WWbSdsre66-OV8z2UK8C?usp=sharing" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>Gemini</a></div>
-                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="presentation" class="w-5 h-5 ml-2 brand-color-accent"></i>Presentation Mood</h5><p class="text-sm text-gray-500 mb-3">يساعدك تعمل برزينتيشن احترافية من أي محتوى.</p><a href="https://gemini.google.com/gem/12j5kEmugQ3cWImOvPmwZurTMKtgB-S-R?usp=sharing" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>Gemini</a></div>
-                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="sparkles" class="w-5 h-5 ml-2 text-blue-500"></i>الملخصاتي الخبير</h5><p class="text-sm text-gray-500 mb-3">مساعد شخصي للتلخيص العلمي بلهجة عربية خالصة.</p><a href="https://gemini.google.com/gem/1LLwEDSBrhtqAhFNxeqBLy8zRkrR5Ulq-?usp=sharing" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div>
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="zap" class="w-5 h-5 ml-2 brand-color-accent"></i>Universal Primer</h5><p class="text-sm text-gray-500 mb-3">أسرع طريقة لتعلم أي شيء صعب.</p><a href="https://chatgpt.com/g/g-GbLbctpPz-universal-primer" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>ChatGPT</a></div>
+                    </div></div></details>
+                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="bar-chart-3" class="w-5 h-5 inline-block ml-3"></i>انشاء المحتوى المرئي والبيانات</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="pie-chart" class="w-5 h-5 ml-2 brand-color-accent"></i>Data Analysis & Report AI🌍</h5><p class="text-sm text-gray-500 mb-3">تحليل بيانات وتقارير مفصلة مع رسوم بيانية.</p><a href="https://chatgpt.com/g/g-2OebMtWeG-data-analysis-report-ai" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>ChatGPT</a></div>
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="presentation" class="w-5 h-5 ml-2 brand-color-accent"></i>ShowMe: Presentation & Diagram</h5><p class="text-sm text-gray-500 mb-3">لإنشاء العروض التقديمية والرسوم البيانية والمخططات.</p><a href="https://chatgpt.com/g/g-5QhhdsfDj-presentation-diagram-generator-by-showme" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>ChatGPT</a></div>
+                        <div class="highlight-card content-card p-4 md:col-span-2"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="book-image" class="w-5 h-5 ml-2 brand-color-accent"></i>Storybook</h5><p class="text-sm text-gray-500 mb-3">لإنشاء قصة مصورة مخصصة للأطفال أو البالغين.</p><a href="https://gemini.google.com/u/0/gem/storybook" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>Gemini</a></div>
+                    </div></div></details>
+                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="type" class="w-5 h-5 inline-block ml-3"></i>الكتابة والتنسيق العام</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="feather" class="w-5 h-5 ml-2 brand-color-accent"></i>Write For Me</h5><p class="text-sm text-gray-500 mb-3">Supercharged writing assistant⚡.</p><a href="https://chatgpt.com/g/g-B3hgivKK9-write-for-me" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>ChatGPT</a></div>
                         <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="sparkles" class="w-5 h-5 ml-2 text-blue-500"></i>المنسق المحترف</h5><p class="text-sm text-gray-500 mb-3">للتنسيق الاحترافي للنصوص وإضافة لمسة احترافية.</p><a href="https://gemini.google.com/u/0/gem/a41d02a879cc" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div>
                         <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="user-square" class="w-5 h-5 ml-2 brand-color-accent"></i>AI Humanizer</h5><p class="text-sm text-gray-500 mb-3">لتحويل النصوص المولدة آلياً لمحتوى بلمسة بشرية.</p><a href="https://chatgpt.com/g/g-2azCVmXdy-ai-humanizer" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div>
                     </div></div></details>
-                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="megaphone" class="w-5 h-5 inline-block ml-3"></i>التسويق وصناعة المحتوى</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="trending-up" class="w-5 h-5 ml-2 brand-color-accent"></i>Ask Hani Shaker 3.0</h5><p class="text-sm text-gray-500 mb-3">مساعد متخصص في التسويق وصناعة المحتوى.</p><a href="https://chatgpt.com/g/g-68d1d01909d48191840bb52975a4b1e9-ask-hani-shaker-3-0" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div><div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="edit" class="w-5 h-5 ml-2 brand-color-accent"></i>Copywriter GPT</h5><p class="text-sm text-gray-500 mb-3">خبير في صياغة الإعلانات، التسويق، وبناء العلامات التجارية.</p><a href="https://chatgpt.com/g/g-Ji2QOyMml-copywriter-gpt-marketing-branding-ads" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div></div></div></details>
-                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="tooth" class="w-5 h-5 inline-block ml-3"></i>Dental GPTs</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="camera" class="w-5 h-5 ml-2 brand-color-accent"></i>Dental Photography</h5><p class="text-sm text-gray-500 mb-3">مساعد متخصص في التصوير الفوتوغرافي لطب الأسنان.</p><a href="https://gemini.google.com/u/0/gem/43ba11a3a007" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div></div></div></details>
+                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="briefcase" class="w-5 h-5 inline-block ml-3"></i>أدوات مساعدة وانتاجية</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="git-branch" class="w-5 h-5 ml-2 brand-color-accent"></i>Decision Maker</h5><p class="text-sm text-gray-500 mb-3">أفضل صانع قرار في العالم لمساعدتك على الاختيار.</p><a href="https://chatgpt.com/g/g-JFYwMmo6K-decision-maker" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>ChatGPT</a></div>
+                    </div></div></details>
+                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="megaphone" class="w-5 h-5 inline-block ml-3"></i>التسويق وصناعة المحتوى</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="trending-up" class="w-5 h-5 ml-2 brand-color-accent"></i>Ask Hani Shaker 3.0</h5><p class="text-sm text-gray-500 mb-3">مساعد متخصص في التسويق وصناعة المحتوى.</p><a href="https://chatgpt.com/g/g-68d1d01909d48191840bb52975a4b1e9-ask-hani-shaker-3-0" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div>
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="edit" class="w-5 h-5 ml-2 brand-color-accent"></i>Copywriter GPT</h5><p class="text-sm text-gray-500 mb-3">خبير في صياغة الإعلانات، التسويق، وبناء العلامات التجارية.</p><a href="https://chatgpt.com/g/g-Ji2QOyMml-copywriter-gpt-marketing-branding-ads" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div>
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="target" class="w-5 h-5 ml-2 brand-color-accent"></i>MARKETING</h5><p class="text-sm text-gray-500 mb-3">Your expert mentor in advertising & Guiding Media Professionals.</p><a href="https://chatgpt.com/g/g-DtjWjSDiv-marketing" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>ChatGPT</a></div>
+                    </div></div></details>
+                    <details class="distinct-details-container"><summary class="ai-category-header"><h4 class="text-lg font-bold flex items-center"><i data-lucide="tooth" class="w-5 h-5 inline-block ml-3"></i>Dental GPTs</h4><i data-lucide="chevron-left" class="chevron w-5 h-5"></i></summary><div class="collapsible-content"><div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="camera" class="w-5 h-5 ml-2 brand-color-accent"></i>Dental Photography</h5><p class="text-sm text-gray-500 mb-3">مساعد متخصص في التصوير الفوتوغرافي لطب الأسنان.</p><a href="https://gemini.google.com/u/0/gem/43ba11a3a007" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للمساعد</a></div>
+                        <div class="highlight-card content-card p-4"><h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="tablets" class="w-5 h-5 ml-2 brand-color-accent"></i>تطبيق الأدوية</h5><p class="text-sm text-gray-500 mb-3">Digital Dental Assistant - تطبيق الأدوية.</p><a href="https://mahmoudtaru.github.io/Digital-Dental-Assistant/" target="_blank" class="ai-button block w-full text-center text-sm py-2"><i data-lucide="external-link" class="inline-block w-4 h-4 ml-2"></i>الانتقال للتطبيق</a></div>
+                    </div></div></details>
                     
                     <!-- Premium Section -->
                     <details class="distinct-details-container">
@@ -635,7 +704,7 @@
                                 </div>
                                 <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
                                     <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="notebook-text" class="w-5 h-5 ml-2 brand-color-accent"></i>NotebookLM Mood</h5>
-                                    <p class="text-sm text-gray-500">مساعد متخصص لإنشاء ملخصات وفلاش كاردز من مصادرك.</p>
+                                    <p class="text-sm text-gray-500">مساعد متخصص لاداة نوت بوك الم من جوجل هدفه يساعدك تخصص اي نوت بوك ليك سواء من خلال برومبت احترافي للمحادثة لانشاء ملخصات فيديو صوت فلاش كاردز كويزات</p>
                                 </div>
                                 <div class="highlight-card content-card p-4 premium-card" onclick="showPremiumAlert()">
                                     <h5 class="text-lg font-bold brand-color-primary mb-2 flex items-center"><i data-lucide="gem" class="w-5 h-5 ml-2 brand-color-accent"></i>Gem Builder Mood</h5>
@@ -703,6 +772,10 @@
                             <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="graduation-cap" class="w-5 h-5 ml-3 brand-color-accent"></i>ازاي تتعلم وتذاكر بالـ AI</h3><div class="flex flex-col sm:flex-row justify-start items-center gap-3 text-sm"><a href="https://t.me/Smarter_With_Ai/103" target="_blank" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="play-circle" class="w-4 h-4 ml-2"></i>شاهد المحاضرة</a><a href="https://drive.google.com/file/d/1X8k3Q4kzHiqvMy64y3mKLuZ1zSa9XWHO/view?usp=sharing" target="_blank" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="file-text" class="w-4 h-4 ml-2"></i>دليل المحاضرة</a></div></div>
                             <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="notebook-text" class="w-5 h-5 ml-3 brand-color-accent"></i>كل ما تحتاج معرفته عن NotebookLM</h3><div class="flex flex-col sm:flex-row justify-start items-center gap-3 text-sm"><a href="https://t.me/Mahmoud_learning_space/215" target="_blank" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="play-circle" class="w-4 h-4 ml-2"></i>شاهد المحاضرة</a><a href="https://drive.google.com/file/d/1VhT-8jYdNfYYGcGCp4WVaVsIPH7cnrSA/view?usp=sharing" target="_blank" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="file-text" class="w-4 h-4 ml-2"></i>دليل المحاضرة</a></div></div>
                             <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="bot" class="w-5 h-5 ml-3 brand-color-accent"></i>دليلك لبناء مساعد شخصي</h3><div class="flex flex-col sm:flex-row justify-start items-center gap-3 text-sm"><a href="https://t.me/Smarter_With_Ai/117" target="_blank" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="play-circle" class="w-4 h-4 ml-2"></i>شاهد المحاضرة</a><a href="https://drive.google.com/file/d/1-XK3ID_S5NGh--tyanF623yxcU6rvBQI/view?usp=sharing" target="_blank" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="file-text" class="w-4 h-4 ml-2"></i>دليل المحاضرة</a></div></div>
+                            <!-- المحاضرات الجديدة -->
+                            <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="pie-chart" class="w-5 h-5 ml-3 brand-color-accent"></i>ازاي تعمل انفوجرافيك احترافي</h3><div class="flex flex-col sm:flex-row justify-start items-center gap-3 text-sm"><a href="https://t.me/Smarter_With_Ai/130" target="_blank" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="play-circle" class="w-4 h-4 ml-2"></i>شاهد المحاضرة</a><a href="https://drive.google.com/drive/u/0/folders/1f6wTxSAmAMpPQDVZBFT0_jvse5SXwPoV" target="_blank" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="file-text" class="w-4 h-4 ml-2"></i>دليل المحاضرة</a></div></div>
+                            <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="presentation" class="w-5 h-5 ml-3 brand-color-accent"></i>ازاي تعمل بريزنتيشن احترافي</h3><div class="text-center p-2 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 font-semibold">سيتم إضافتها قريباً بإذن الله</div></div>
+                            <div class="lecture-item-card highlight-card"><h3 class="text-lg font-bold text-gray-700 mb-4 flex items-center brand-color-primary"><i data-lucide="layout-template" class="w-5 h-5 ml-3 brand-color-accent"></i>ازاي تحول الـ CV لموقع احترافي</h3><div class="text-center p-2 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 font-semibold">سيتم إضافتها قريباً بإذن الله</div></div>
                         </div>
                     </div>
                 </details>
@@ -735,8 +808,11 @@
                             <br><br>
                             هدفي أساعدك خطوة بخطوة، من خلال محاضرات مجانية وكورس عملي متكامل، يعلمك إزاي تسخر أحدث أدوات الذكاء الاصطناعي في شغلك، دراستك، وحياتك اليومية عشان تكون Smarter With Ai. الموضوع أبسط مما تتخيل، والتطبيق ده مجرد بداية للي ممكن تتعلمه معانا."
                         </p>
-                        <div class="relative w-full overflow-hidden rounded-lg mt-4" style="padding-top: 56.25%;">
-                            <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/npTasyNEoS4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="mt-4">
+                             <a href="https://t.me/Mahmoud_learning_space/234" target="_blank" class="ai-button inline-flex items-center justify-center w-full text-base">
+                                <i data-lucide="play-circle" class="w-5 h-5 ml-2"></i>
+                                <span>انتقل لسماع القصة كاملة</span>
+                            </a>
                         </div>
                     </div>
                 </details>
@@ -910,7 +986,7 @@
             await new Promise(resolve => setTimeout(resolve, 500)); 
             
             await new Promise(resolve => setTimeout(resolve, 300));
-            await typewriter(document.getElementById('splash-subtitle'), "مساعدك الذكي لتعلم وممارسة طب الأسنان", 50);
+            await typewriter(document.getElementById('splash-subtitle'), "مساحتك لاستخدام الذكاء الاصطناعي في طب الأسنان بفعالية.", 50);
             
             getStartedButton.classList.add('visible');
             
