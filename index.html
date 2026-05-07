@@ -926,19 +926,20 @@
                     </div>
                 </details>
 
-                <div class="content-card highlight-card p-5 mb-6 text-center">
+                <div class="content-card highlight-card p-5 mb-6 text-center relative overflow-hidden">
                     <h3 class="text-xl font-bold text-gray-800 mb-2 flex items-center justify-center"><i data-lucide="share-2" class="w-6 h-6 ml-3 brand-color-accent"></i>شاركه لمضاعفة الثواب</h3>
                     <p class="text-sm text-gray-500 mb-4">"الدال على الخير كفاعله"</p>
                     <input type="text" id="appLink" value="https://mahmoudtaru.github.io/Smarter-Dentists-With-Ai/" readonly class="w-full text-center p-2 rounded-md border border-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 text-sm share-input">
-                    <div class="flex flex-col sm:flex-row gap-3 mt-4">
+                    <div class="flex flex-col sm:flex-row gap-3 mt-4 mb-4">
                         <button id="copyButton" onclick="copyAppLink()" class="lecture-btn secondary-lecture-btn flex items-center justify-center"><i data-lucide="copy" class="w-4 h-4 ml-2"></i>نسخ الرابط</button>
                         <button onclick="shareAppLink()" class="lecture-btn primary-lecture-btn flex items-center justify-center"><i data-lucide="send" class="w-4 h-4 ml-2"></i>مشاركة التطبيق</button>
                     </div>
-                </div>
-
-                <div class="content-card p-6 mb-6 text-center" style="background: linear-gradient(135deg, rgba(11, 61, 76, 0.05), rgba(163, 193, 74, 0.05));">
-                    <i data-lucide="heart" class="w-10 h-10 brand-color-accent fill-[var(--brand-accent)] mb-3 inline-block"></i>
-                    <h3 class="text-2xl font-extrabold brand-color-primary">لا تنسانا من خالص دعائك</h3>
+                    <div class="pt-4 mt-2 border-t border-gray-100 dark:border-gray-700">
+                        <p class="text-base font-bold brand-color-primary flex items-center justify-center">
+                            <i data-lucide="heart" class="w-5 h-5 ml-2 text-red-500 fill-red-500 animate-pulse"></i>
+                            لا تنسانا من خالص دعائك
+                        </p>
+                    </div>
                 </div>
 
                 <div class="notice-card content-card p-5 mb-6"><h3 class="text-lg font-bold notice-title mb-3 flex items-center"><i data-lucide="star" class="w-6 h-6 ml-3 notice-icon"></i>تقييم التطبيق واقتراحاتكم</h3><p class="text-gray-700 leading-relaxed text-base mb-4 dark:text-gray-300">مساهمتكم في التقييم ضرورية لتحسين المحتوى والأدوات. شاركونا المميزات، العيوب، والاقتراحات.</p><a href="https://forms.gle/agZbg5PHz19kiBuQ9" target="_blank" class="ai-button inline-flex items-center justify-center w-full text-base"><i data-lucide="clipboard-pen" class="w-5 h-5 ml-2"></i>انتقل لنموذج التقييم</a></div>
@@ -1206,7 +1207,7 @@
             try {
                 document.execCommand('copy');
                 
-                buttonElement.innerHTML = '<i data-lucide="check" class="w-4 h-4 ml-2"></i> تم النسخ!';
+                buttonElement.innerHTML = '<i data-lucide="check" class="w-4 h-4 ml-2"></i>تم النسخ! دعواتك 💚';
                 safeCreateIcons(); // Use safe function
                 buttonElement.disabled = true;
                 
@@ -1214,7 +1215,7 @@
                     buttonElement.innerHTML = originalText; 
                     buttonElement.disabled = false;
                     safeCreateIcons(); // Use safe function
-                }, 2000);
+                }, 2500);
             } catch (err) {
                 showCustomMessage("فشل نسخ الرابط. يرجى النسخ يدوياً."); // Fallback popup
             }
